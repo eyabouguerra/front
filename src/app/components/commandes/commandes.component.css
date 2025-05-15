@@ -1,0 +1,48 @@
+.table-responsive {
+border: 1px solid #ddd;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.table th {
+background-color: #f8f9fa;
+}
+.d-flex.px-2.py-1 > div:first-child {
+margin-right: 10px;
+}
+.add{
+  margin-left: 70em;
+  margin-top: 5em;
+  background-color:rgb(247, 183, 51) ;
+  text-align: center;
+  color: rgb(41, 37, 36); ;
+  
+}
+
+.single_page_btn.add {
+  pointer-events: auto !important;
+  z-index: 10;
+}
+
+
+h1{
+  margin-top:-23em;
+  text-align: center;
+  font-weight: bold;
+}
+.container-fluid {
+  margin-left: 18em;
+  width: 80%;
+
+}
+th, td {
+  padding: 5px; /* Réduit l'espacement */
+  text-align: center;
+  font-size: 10px; /* Réduit la taille du texte */
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+
+}
+
+.badge-sm{
+  color: black;
+
+}

@@ -1,0 +1,26 @@
+.custom-button {
+  background-color: #f7b733; /* couleur principale (orange) */
+  color: #fff;
+  font-weight: bold;
+}
+
+.custom-button:hover {
+  background-color: #e09e2c; /* légèrement plus foncé au hover */
+}
+
+.cancel-button {
+  background-color: #666;
+  color: #fff;
+  font-weight: bold;
+}
+
+.cancel-button:hover {
+  background-color: #444;
+}
+
+mat-dialog-container {
+  padding: 20px !important;
+  border-radius: 10px;
+  max-width: 450px !important;
+  min-height: auto !important;
+}

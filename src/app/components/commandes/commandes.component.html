@@ -1,0 +1,95 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
+    <section class="commande_menu">
+      <h1>Gestion des commandes</h1>
+        <div class="container">
+         
+<div class="menu_btn">
+  <button
+  type="button"
+  class="single_page_btn d-none d-sm-block add btn btn-outline-warning"
+  (click)="openAddCommandeDialog()">
+  <i class="fa fa-plus-circle"></i>&nbsp;&nbsp;<b>Ajouter une &nbsp; &nbsp; commande</b>
+</button>
+
+  
+  </div>
+  
+</div>
+</section>
+</main>
+<div class="container-fluid py-2"> 
+  <div class="row">
+    <div class="col-12">
+      <div class="card my-4">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+            <h6 class="text-white text-capitalize ps-3"> Tableau de commandes</h6>
+          </div>
+        </div>
+        <div class="card-body px-0 pb-2">
+          <div class="table-responsive p-0">
+            <table class="table align-items-center mb-0">
+              <thead>
+                <tr>
+                  
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Code Commande</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type produit</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produit</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantité</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date de Commande</th>
+                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Client</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let produit of produits">
+                
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{ produit.codeCommande }}</p>
+                  </td>
+                  
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{ produit.typeProduit }}</p>
+                  </td>
+
+                    
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">
+                      
+                      <span>{{ produit.produitNom || 'Nom introuvable' }}</span>
+                    </p>
+                  </td>
+                  <td class="align-middle text-sm">
+                    <span class="badge badge-sm">
+                      {{ produit.commandeQuantite }} L
+                    </span>
+                    
+                  </td>
+                  <td class="align-middle text-center">
+                    <span class="text-secondary text-xs font-weight-bold">{{ produit.dateCommande | date }}</span>
+                  </td>
+                  <td>
+                    <p class="text-xs font-weight-bold mb-0">{{ produit.clientNom }}</p>
+                  </td>
+                  
+                  <td class="align-middle text-center">
+                    <span class="badge badge-sm bg-gradient-success">{{ produit.prix }} DT</span>
+                  </td>
+                  <td class="align-middle text-center">
+                    <button type="button" class="btn btn-outline-dark" [routerLink]="['/editcommande', produit.idCommande]">Edit</button>
+                    <button class="btn btn-outline-dark" (click)="deleteCommandeById(produit.idCommande)">Delete</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    margin-top: -100em;
+}
+section{
+    margin-top: -35em;
+    margin-left: 20em;
+}
+.container {
+
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    margin-top: 20px; /* Ajuste la marge supérieure pour remonter la div */
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Ombre plus visible */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3); /* Ombre plus intense au survol */
+}
+
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.bg {
+    position: relative;
+    background-image: url('/assets/img/ag1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    color: white; 
+    
+}
+.bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.4); /* Gris avec une transparence de 40% */
+    z-index: 1; /* Met le calque au-dessus de l'image */
+    border-radius: 15px;
+}
+.bg> * {
+    position: relative;
+    z-index: 2; /* Le texte passe au-dessus du calque transparent */
+}
+
+
+.card-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+

@@ -1,0 +1,133 @@
+section{
+    margin-top: -45em;
+    margin-left: 20em;
+}
+.lo{
+    font-weight: bold;
+}
+full-calendar {
+   
+    max-width: 50%;
+    margin: 0 auto;
+    margin-top: -35em;
+    margin-left: 50em;
+  }
+ 
+  .add{
+    margin-left: 50em;
+    background-color: black;
+    text-align: center;
+   
+}
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/a1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    color: white; /* Le texte reste noir */
+    
+    
+}
+
+/* Calque semi-transparent sur l'image */
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.4); /* Gris avec une transparence de 40% */
+    z-index: 1; /* Met le calque au-dessus de l'image */
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Le texte passe au-dessus du calque transparent */
+}
+
+h3{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+b{
+    font-size: 1.2em;
+}
+span{
+    color: red;
+    font-size: 1.2em;
+
+}
+.custom-button-group {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    gap: 1rem; /* Espace entre les boutons */
+    background-color: war;
+}
+
+   
+
+/* styles.css (global) */
+
+/* Classes pour les dialogues */
+.custom-dialog .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .animated-dialog .mat-dialog-container {
+    animation: dialogFadeIn 0.3s ease-out;
+  }
+  
+  @keyframes dialogFadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(-20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+  
+  /* Amélioration pour les boutons de la page principale */
+  .single_page_btn.btn-outline-warning {
+    transition: all 0.3s ease;
+    margin: 0 3px;
+  }
+  
+  .single_page_btn.btn-outline-warning:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(247, 183, 51, 0.3);
+  }
+  
+  .b1.lo {
+    transition: all 0.3s ease;
+  }
+  
+  .b1.lo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Surlignage des informations importantes */
+  .detail-box h3 span {
+    color: #e12424;
+    font-weight: 500;
+  }
+  
+  /* Animation pour les nouveaux éléments ajoutés */
+  @keyframes newItemHighlight {
+    0% { background-color: rgba(247, 183, 51, 0.2); }
+    100% { background-color: transparent; }
+  }
+  
+  .new-item {
+    animation: newItemHighlight 2s ease-out;
+  }
+

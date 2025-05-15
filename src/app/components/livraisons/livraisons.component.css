@@ -1,0 +1,51 @@
+ /* Personnalisation du FullCalendar */
+ full-calendar {
+   
+  max-width: 50%;
+  margin: 0 auto;
+  margin-top: -35em;
+  margin-left: 30em;
+}
+
+/* Ajout d'une bordure pour le calendrier */
+.full-calendar .fc {
+  border-radius: 8px;
+  border: 1px solid #d97c09;
+}
+
+/* Personnalisation de l'en-tête */
+.fc-toolbar {
+  background-color: #f5aa1e;
+  color: white;
+}
+button {
+  position: relative; /* Permet de déplacer précisément le bouton */
+  top: -500px; /* Déplace le bouton vers le haut */
+right: -80%; /* Centre le bouton horizontalement */
+ /* transform: translateX(-50%); /* Centrer horizontalement avec la position relative */
+ color: black;
+}
+h2{
+  margin-top: -25em;
+}
+/* Fond noir et texte blanc dans le calendrier */
+::ng-deep .fc {
+  
+  color: rgb(41, 37, 36);
+}
+
+/* Couleur personnalisée pour les titres */
+::ng-deep .fc .fc-toolbar-title {
+  color: rgb(41, 37, 36);
+}
+
+/* Bordures et boutons */
+::ng-deep .fc-button {
+  background-color: #333;
+  border: none;
+  color: white;
+}
+
+.calendar-container {
+  padding: 20px;
+}

@@ -1,0 +1,86 @@
+section{
+    margin-top: -45em;
+    margin-left: -10em;
+}
+.lo{
+    font-weight: bold;
+}
+full-calendar {
+   
+    max-width: 50%;
+    margin: 0 auto;
+    margin-top: -35em;
+    margin-left: 50em;
+  }
+ 
+  .add{
+    margin-left: 50em;
+    background-color: black;
+    text-align: center;
+   
+}
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/a1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    color: white; /* Le texte reste noir */
+ 
+}
+button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.single_page_btn {
+    margin-top: 10px; /* Ajoute un petit espace au-dessus si nécessaire */
+}
+
+/* Calque semi-transparent sur l'image */
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.4); /* Gris avec une transparence de 40% */
+    z-index: 1; /* Met le calque au-dessus de l'image */
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Le texte passe au-dessus du calque transparent */
+}
+
+h3{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+b{
+    font-size: 1.2em;
+}
+span{
+    color: red;
+    font-size: 1.2em;
+
+}
+.custom-button-group {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    gap: 1rem; /* Espace entre les boutons */
+    background-color: war;
+}
+.single_page_btn {
+    display: block;
+    margin:  auto; /* Centre le bouton horizontalement */
+}
+
+
+   
+
+
+

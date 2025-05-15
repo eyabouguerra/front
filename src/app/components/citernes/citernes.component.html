@@ -1,0 +1,86 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+<div class="heading_container heading_center container">
+  <h2 class="lo">Gestion des Citernes</h2>
+  <br>
+
+  <!-- Formulaire pour ajouter une nouvelle citerne -->
+  <div class="form">
+    <div class="position-relative">
+    <input type="text" placeholder="Référence de la citerne" [(ngModel)]="nouvelleCiterne.reference" readonly>
+    <button type="button"
+        class="btn btn-sm btn-outline-secondary position-absolute end-4 h-1"
+        style="top: 20px;"
+        (click)="genererCodeCiterne()">
+          Générer
+        </button>
+    </div>
+    <input type="number" placeholder="Capacité" [(ngModel)]="nouvelleCiterne.capacite">
+    <input type="number" [(ngModel)]="nouvelleCiterne.nombreCompartiments" name="nombreCompartiments" required />
+    <button type="button" class="btn btn-warning" (click)="ajouterCiterne()">
+      <i class="fa fa-plus-circle">&nbsp;&nbsp;</i><b>Ajouter Citerne</b>
+    </button>
+  </div>
+  <!-- Tableau des citernes -->
+  <table>
+    <thead>
+      <tr>
+        <!--<th>ID</th>-->
+        <th>Référence</th>
+        <th>Capacité</th>
+        <th>Nbre de compartiment</th>
+        <th>Compartiments </th>    
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let citerne of citernes">
+       <!-- <td>{{ citerne.id }}</td>-->
+        <td>{{ citerne.reference }}</td>
+        <td>{{ citerne.capacite }}</td>
+        <td>{{ citerne.nombreCompartiments }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let compartiment of citerne.compartiments">
+              {{ compartiment.reference }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-warning"  [routerLink]="['/compartiments', citerne.id]">
+            <i class="fa fa-plus-circle"></i> Ajouter compartiment
+          </button>
+          
+          &nbsp;
+          <button type="button" class="btn btn-outline-warning"  (click)="editCiterne(citerne.id)">
+            <i class="fa-solid fa-pen"></i> 
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-outline-danger" (click)="supprimerCiterne(citerne.id)">
+            <i class="fa-solid fa-trash"></i> 
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal for editing citerne -->
+  <div *ngIf="isModalOpen" class="modal visible">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Modifier la Citerne</h2>
+      <input type="text" [(ngModel)]="citerneEnCours.reference" placeholder="Référence" readonly>
+      <input type="number" [(ngModel)]="citerneEnCours.capacite" placeholder="Capacité">
+
+      <select multiple [(ngModel)]="selectedCompartiments">
+        <option *ngFor="let compartiment of compartiments" [value]="compartiment.id">
+          {{ compartiment.reference }} - {{ compartiment.capaciteMax }} L
+        </option>
+      </select>
+      <button type="button" class="btn btn-warning" (click)="sauvegarderModification()">
+        <i class="fa-solid fa-pen"></i> Modifier
+      </button>
+    </div>
+  </div>
+</div>

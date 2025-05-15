@@ -1,0 +1,124 @@
+section{
+    margin-top: -45em;
+    margin-left: 2em;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 20px;
+    padding: 20px;
+}
+
+.col-sm-6.col-lg-6 {
+    flex: 1 1 calc(50% - 20px); /* Pour s'adapter sur deux colonnes */
+    max-width: 500px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.col-sm-6.col-lg-6:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.single_food_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.media-body {
+    flex: 1;
+}
+
+h3, h5, p {
+    margin: 7px 0;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+
+h3 b, h5 b, p b {
+    color: red; /* Couleur d'accentuation */
+}
+
+span {
+    color: white;
+    font-weight: 500;
+}
+
+
+
+
+.single_page_btn:hover {
+    background: #cc4628;
+}
+
+@media (max-width: 768px) {
+    .col-sm-6.col-lg-6 {
+        flex: 1 1 100%;
+    }
+
+    .single_food_item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/12.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* Assure que l'image couvre toute la zone */
+    background-position: center center; /* Centre l'image */
+    padding: 20px; /* Ajoute du padding pour éviter que le texte colle aux bords */
+    min-height: 250px; /* Définit une hauteur minimale pour afficher correctement l'image */
+    color: white;
+    border-radius: 15px; /* Ajoute des coins arrondis */
+    overflow: hidden; /* Empêche le dépassement */
+}
+
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Ajoute un calque sombre pour améliorer la lisibilité du texte */
+    z-index: 1;
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Place le texte au-dessus du calque sombre */
+}
+.single_page_btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    background: linear-gradient(45deg, #e63946, #cc4628); /* Dégradé rouge-orange */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.single_page_btn:hover {
+    background: linear-gradient(45deg, #cc4628, #b53220);
+    transform: scale(1.05); /* Légère mise en avant */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.single_page_btn:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}

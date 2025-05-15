@@ -1,0 +1,23 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+<div class="heading_container heading_center container">
+    <h2 class="lo">
+      Gestion des livraisons
+    </h2>
+    </div>
+    <button class="btn btn-warning mt-4" [routerLink]="['/addlivraison']">
+      <b>Ajouter une livraison</b>
+    </button>
+  
+    <br><br><br>
+   
+<full-calendar [options]="calendarOptions"
+
+[plugins]="calendarOptions.plugins"
+[headerToolbar]="calendarOptions.headerToolbar"
+[initialView]="calendarOptions.initialView"
+[events]="calendarOptions.events"
+(eventClick)="handleEventClick($event)">
+</full-calendar>
+
+ 

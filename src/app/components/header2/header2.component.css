@@ -1,0 +1,33 @@
+.hero_bg_box img {
+    height: 13em; /* Ajuste selon ton besoin */
+   width: 120em;
+    object-fit: cover; /* Ajuste l'image pour éviter la déformation */
+}
+.hero_area{
+    height: -10px; /* Ajuste selon ton besoin */
+   
+    object-fit: cover;
+}
+
+img{
+    height: 90px;
+    width: 400px;
+}
+.imgagil{
+    margin-left: 10px;
+}
+.header_bottom{
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+
+a{
+    text-decoration: none;
+    font-weight: bold;
+
+}
+.nav-link{
+    font-weight: bold;
+}
+
+  

@@ -1,0 +1,87 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+<div class="heading_container heading_center container">
+  <h2 class="lo">Gestion des camions</h2>
+  <br>
+
+  <!-- Formulaire -->
+  <div class="form">
+    <input type="text" placeholder="Marque" [(ngModel)]="nouveauCamion.marque" required>
+    <input type="text" placeholder="Modèle" [(ngModel)]="nouveauCamion.modele" required>
+    <input type="text" placeholder="Immatriculation" [(ngModel)]="nouveauCamion.immatriculation" required>
+    <input type="number" placeholder="Kilométrage" [(ngModel)]="nouveauCamion.kilometrage" required >
+
+    <!-- Liste déroulante pour le statut -->
+    <select [(ngModel)]="nouveauCamion.statut" required>
+      <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
+    </select>
+
+    
+
+    <!-- Ajouter le bouton uniquement si tous les champs sont remplis -->
+    <button type="button" class="btn btn-warning" (click)="ajouterCamion()" [disabled]="!isFormValid()">
+      <i class="fa fa-plus-circle">&nbsp;&nbsp;</i><b>Ajouter</b>
+    </button>
+  </div>
+
+  <!-- Tableau des camions -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>Immatriculation</th>
+        <th>Kilométrage</th>
+        <th>Statut</th>
+        
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let camion of camions">
+        <td>{{ camion.id }}</td>
+        <td>{{ camion.marque }}</td>
+        <td>{{ camion.modele }}</td>
+        <td>{{ camion.immatriculation }}</td>
+        <td>{{ camion.kilometrage }}</td>
+        <td>{{ camion.statut }}</td>
+        <td>
+          <button type="button" class="btn btn-warning" (click)="editCamion(camion.id)">
+            <i class="fa-solid fa-pen"></i>
+          </button> &nbsp;
+          <button type="button" class="btn btn-warning" (click)="supprimerCamion(camion.id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal d'édition -->
+
+<div *ngIf="camionEnCours" class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Modifier le Camion</h2>
+  
+      <input type="text" [(ngModel)]="camionEnCours.marque" placeholder="Marque" />
+      <input type="text" [(ngModel)]="camionEnCours.modele" placeholder="Modèle" />
+      <input type="text" [(ngModel)]="camionEnCours.immatriculation" placeholder="Immatriculation" />
+      <input type="number" [(ngModel)]="camionEnCours.kilometrage" placeholder="Kilométrage" min="0">
+       <!-- 👇 Select pour modifier le statut -->
+    <select [(ngModel)]="camionEnCours.statut" required>
+      <option *ngFor="let statut of statuts" [value]="statut">{{ statut }}</option>
+    </select>
+
+      
+      
+  
+      <button type="button" class="btn btn-warning" (click)="sauvegarderModification()">
+        <b>Enregistrer</b>
+      </button>
+    </div>
+  </div>
+  

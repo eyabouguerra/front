@@ -1,0 +1,49 @@
+<app-header2></app-header2>
+<div class="heading_container heading_center container   ">
+  <h2 class="li">
+    Edit Livraison
+  </h2>
+<form [formGroup]="livraisonForm" (ngSubmit)="editLivraison()">
+<br>
+
+<div class="lo">
+  <label for="codeLivraison">Code Livraison :</label>&nbsp;
+  <input id="codeLivraison" formControlName="codeLivraison" type="text" readonly>
+</div>
+<div class="lo">
+  <label for="marque">Marque de camion :</label>&nbsp;
+  <input id="marque" formControlName="marque" type="text" readonly>
+</div>
+<div class="lo">
+  <label for="immatriculation">Immatriculation de camion :</label>&nbsp;
+  <input id="immatriculation" formControlName="immatriculation" type="text" readonly>
+</div>
+<div class="lo">
+  <label for="reference">Citene de camion :</label>&nbsp;
+  <input id="reference" formControlName="reference" type="text" readonly>
+
+</div>
+
+
+  <div class="lo">
+    <label for="dateLivraison">Date Livraison:</label>&nbsp;
+    <input id="dateLivraison" formControlName="dateLivraison" type="date" required>
+  </div>
+  
+  <div class="la">
+    <label for="statut">Statut:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <select id="statut" formControlName="statut" required>
+        <option value="EN_ATTENTE">En Attente</option>
+        <option value="LIVRE">Livré</option>
+        <option value="ANNULE">Annulé</option>
+    </select> 
+  </div>
+  <br>
+  <div class="button-container">
+    <button mat-button class="btn btn-warning" type="submit"><b>Enregistrer</b></button>
+&nbsp;
+    <button mat-button class="btn btn-warning" type="button" (click)="cancel()"><b>Annuler</b></button>
+  </div>
+  
+</form>
+</div>
