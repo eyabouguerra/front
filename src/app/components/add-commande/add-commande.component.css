@@ -276,3 +276,23 @@
   font-size: 0.875rem;
   padding: 10px;
 }
+
+.custom-btn-nouveau-client {
+  background-color: rgb(247, 183, 51);
+  border-color: rgb(247, 183, 51);
+  color: black;
+}
+
+.custom-btn-nouveau-client:hover {
+  background-color: rgb(230, 170, 40); /* Légère variation pour le hover */
+  border-color: rgb(230, 170, 40);
+}
+
+.form-control {
+  width: 100% !important;
+  min-width: 250px !important;
+}
+.form-control {
+  width: 100%; /* ou une largeur fixe comme 300px */
+  min-width: 200px; /* pour s'assurer qu'il y a assez d'espace */
+}

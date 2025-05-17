@@ -210,7 +210,8 @@ export class AddCommandeComponent implements OnInit {
       const produit = this.produits.find(prod => prod.id === p.produitId);
       if (!produit) return of(null);
 
-      const codeUnique = `${formValue.codeCommande}-${index + 1}`;
+ const codeUnique = `${formValue.codeCommande}-${index + 1}`;
+
 
       const commandeIndividuelle = {
         codeCommande: codeUnique,
@@ -232,12 +233,13 @@ export class AddCommandeComponent implements OnInit {
           this.isSuccessful = true;
           this.isFailed = false;
           this.isLoading = false;
-          this.addCommandeForm.reset({
-            codeCommande: '',
-            dateCommande: this.getTodayDate(),
-            client: null,
-            totalPrice: 0
-          });
+  this.addCommandeForm.reset({
+  codeCommande: '',
+  dateCommande: this.getTodayDate(),
+  client: null,
+  totalPrice: 0
+});
+
           this.produitsFormArray.clear();
           this._dialogRef.close('success');
         }
@@ -251,4 +253,6 @@ export class AddCommandeComponent implements OnInit {
       }
     });
   }
+
+  
 }

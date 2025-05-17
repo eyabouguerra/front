@@ -38,15 +38,13 @@
           <div class="mb-3 form-group">
             <label for="client" class="form-label">Client</label>
             <div class="input-group">
-              <select id="client" formControlName="client" class="form-control">
-                <option [ngValue]="null" disabled>Sélectionnez un client</option>
-                <option *ngFor="let client of clients" [ngValue]="client.clientId">
-                  {{ client.fullName }}
-                </option>
-              </select>
-              <button type="button" class="btn btn-outline-primary" (click)="openAddClientDialog()">
-                <i class="fa fa-plus me-2"></i>Nouveau Client
-              </button>
+         <select id="client" formControlName="client" class="form-control">
+  <option [ngValue]="null" disabled>Sélectionnez un client</option>
+  <option *ngFor="let client of clients" [ngValue]="client.clientId">{{ client.fullName }}</option>
+</select>
+            <button type="button" class="btn btn-outline-primary" (click)="openAddClientDialog()" style="background-color: rgb(247, 183, 51); border-color: rgb(247, 183, 51); color: black;">
+  <i class="fa fa-plus me-2"></i>Nouveau Client
+</button>
             </div>
             <div *ngIf="addCommandeForm.get('client')?.touched && addCommandeForm.get('client')?.hasError('required')" class="invalid-feedback">
               La sélection d'un client est requise.
@@ -84,16 +82,7 @@
             </div>
           </div>
 
-          <!-- Champ Date -->
-          <div class="mb-4">
-            <label for="dateCommande" class="form-label">
-              <i class="fa fa-calendar-alt me-2"></i>Date de commande
-            </label>
-            <input formControlName="dateCommande" type="date" class="form-control" [readonly]="true" >
-            <div *ngIf="addCommandeForm.get('dateCommande')?.invalid && addCommandeForm.get('dateCommande')?.touched" class="text-danger">
-              <i class="fa fa-exclamation-circle me-1"></i>La date est obligatoire.
-            </div>
-          </div>
+
 
           <!-- Champ Prix total -->
           <div class="mb-4">

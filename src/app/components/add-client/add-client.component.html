@@ -45,8 +45,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
-    <button type="button" class="btn btn-primary" (click)="addClient()" [disabled]="addClientForm.invalid || isLoading">
-      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+    <button type="button" class="btn btn-primary"   (click)="addClient()" [disabled]="addClientForm.invalid || isLoading" >
+      <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" ></span>
       Ajouter
     </button>
   </div>

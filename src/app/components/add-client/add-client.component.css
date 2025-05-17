@@ -24,3 +24,15 @@
   font-size: 0.875rem;
   padding: 10px;
 }
+
+
+.custom-modal-dialog {
+  max-width: 500px; /* Augmente la largeur de la popup */
+  margin: 1.75rem auto; /* Centre la popup avec une marge */
+}
+
+.custom-modal-content {
+  padding: 20px; /* Augmente l'espacement interne */
+  border-radius: 10px; /* Coins arrondis pour un look plus doux */
+  background-color: #ffffff; /* Fond blanc pour plus de clarté */
+}

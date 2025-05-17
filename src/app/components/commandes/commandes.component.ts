@@ -42,101 +42,103 @@ export class CommandesComponent implements OnInit {
   }
 
   loadCommandes(): void {
-    this.cService.getAllCommandes().subscribe({
-      next: (data) => {
-        this.allCommandes = data;
-        this.commandes = data;
-        console.log('Données brutes des commandes :', JSON.stringify(this.allCommandes, null, 2));
-        this.fetchClientsForCommandes();
-      },
-      error: (error) => {
-        console.error('Erreur lors de la récupération des commandes', error);
-      }
-    });
+this.cService.getAllCommandes().subscribe({
+  next: (data) => {
+    this.allCommandes = data;
+    console.log('Commandes brutes avec client data:', JSON.stringify(this.allCommandes, null, 2));
+    this.fetchClientsForCommandes();
+  },
+  error: (error) => {
+    console.error('Erreur lors de la récupération des commandes', error);
+  }
+});
   }
 
-  fetchClientsForCommandes(): void {
-    // Extrait les IDs des clients de manière robuste
-    const clientIds = [...new Set(
-      this.allCommandes
-        .filter(cmd => (cmd.client_id && cmd.client_id > 0) || (cmd.client && cmd.client.id && cmd.client.id > 0))
-        .map(cmd => cmd.client_id || (cmd.client && cmd.client.id))
-    )];
+fetchClientsForCommandes(): void {
+  if (this.allCommandes.length === 0) {
+    this.extractProduits();
+    return;
+  }
 
-    console.log('IDs clients extraits :', clientIds);
-
-    if (clientIds.length === 0) {
-      console.warn('Aucun ID de client trouvé. Données :', JSON.stringify(this.allCommandes, null, 2));
-      this.allCommandes.forEach(cmd => {
-        cmd.clientNom = 'Client inconnu';
-      });
-      this.extractProduits();
-      return;
+  // Try to use embedded client data first
+  this.allCommandes.forEach(cmd => {
+    if (cmd.client && cmd.client.fullName) {
+      cmd.clientNom = cmd.client.fullName;
+    } else {
+      cmd.clientNom = 'Client inconnu'; // Placeholder until fetched
     }
+  });
 
+  // Fetch client IDs from cmd.client.clientId
+  const clientIds = [...new Set(
+    this.allCommandes
+      .filter(cmd => cmd.client?.clientId) // Access clientId correctly
+      .map(cmd => cmd.client.clientId)
+      .filter(id => id != null)
+  )];
+
+  if (clientIds.length > 0) {
     this.clientService.getClientsByIds(clientIds).subscribe({
       next: (clients) => {
-        console.log('Réponse de l\'API pour les clients :', JSON.stringify(clients, null, 2));
         const clientMap = new Map<number, string>();
         clients.forEach(client => {
-          const clientName = client.fullName || client.name || `${client.firstName || ''} ${client.lastName || ''}`.trim() || 'Client inconnu';
-          if (client.id && clientName) {
-            clientMap.set(client.id, clientName);
+          if (client.clientId && client.fullName) {
+            clientMap.set(client.clientId, client.fullName);
           }
         });
 
         this.allCommandes.forEach(cmd => {
-          const clientId = cmd.client_id || (cmd.client && cmd.client.id);
-          cmd.clientNom = clientMap.get(clientId) || 'Client inconnu';
-          console.log(`Commande ${cmd.codeCommande} - Client ID: ${clientId}, Nom: ${cmd.clientNom}`);
+          if (cmd.client?.clientId && clientMap.has(cmd.client.clientId)) {
+            cmd.clientNom = clientMap.get(cmd.client.clientId) || 'Client inconnu';
+          }
         });
 
         this.extractProduits();
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des clients :', error);
-        this.allCommandes.forEach(cmd => {
-          cmd.clientNom = 'Client inconnu';
-        });
-        this.extractProduits();
+        this.extractProduits(); // Proceed with "Client inconnu" if fetch fails
       }
     });
+  } else {
+    this.extractProduits();
   }
+}
 
-  extractProduits(): void {
-    this.produits = [];
-    this.allCommandes.forEach((commande: any) => {
-      const clientNom = commande.clientNom || 'Client inconnu';
+extractProduits(): void {
+  this.produits = [];
+  this.allCommandes.forEach((commande: any) => {
+    const clientNom = commande.clientNom || 'Client inconnu';
 
-      if (Array.isArray(commande.commandeProduits)) {
-        commande.commandeProduits.forEach((cp: any) => {
-          const produit = cp.produit || {};
-          const typeTrouve = this.typeProduits.find(type =>
-            type.produits?.some((p: any) => p.id === produit.id)
-          );
+    if (Array.isArray(commande.commandeProduits)) {
+      commande.commandeProduits.forEach((cp: any) => {
+        const produit = cp.produit || {};
+        const typeTrouve = this.typeProduits.find(type =>
+          type.produits?.some((p: any) => p.id === produit.id)
+        );
 
-          const produitExist = this.produits.find(p =>
-            p.idCommande === commande.id && p.produitNom === produit.nomProduit
-          );
+        const produitExist = this.produits.find(p =>
+          p.idCommande === commande.id && p.produitNom === produit.nomProduit
+        );
 
-          if (produitExist) {
-            produitExist.commandeQuantite = cp.quantite || 'Non définie';
-          } else {
-            this.produits.push({
-              idCommande: commande.id,
-              codeCommande: commande.codeCommande || 'Code inconnu',
-              clientNom: clientNom,
-              produitNom: produit.nomProduit || 'Nom introuvable',
-              commandeQuantite: cp.quantite || 'Non définie',
-              dateCommande: commande.dateCommande,
-              prix: commande.price || 0,
-              typeProduit: typeTrouve?.name || 'Type inconnu'
-            });
-          }
-        });
-      }
-    });
-  }
+        if (produitExist) {
+          produitExist.commandeQuantite = cp.quantite || 'Non définie';
+        } else {
+          this.produits.push({
+            idCommande: commande.id,
+            codeCommande: commande.codeCommande || 'Code inconnu',
+            clientNom: clientNom, // Ensure clientNom is propagated
+            produitNom: produit.nomProduit || 'Nom introuvable',
+            commandeQuantite: cp.quantite || 'Non définie',
+            dateCommande: commande.dateCommande,
+            prix: commande.price || 0,
+            typeProduit: typeTrouve?.name || 'Type inconnu'
+          });
+        }
+      });
+    }
+  });
+}
 
   deleteCommandeById(id: number): void {
     Swal.fire({
