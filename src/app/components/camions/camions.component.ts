@@ -57,30 +57,40 @@ export class CamionsComponent implements OnInit {
               /*this.nouveauCamion.kilometrage > 0 &&*/ this.nouveauCamion.statut );
   }
 
-  ajouterCamion() {
-    if (this.isFormValid()) {
-      const camionData = {
-        ...this.nouveauCamion,
-      };
-  
-      this.camionService.addCamion(camionData).subscribe(
-        (data) => {
-          this.camions.push(data); // 👈 ici on ajoute le camion au tableau
-          this.nouveauCamion = {
-            id: 0,
-            marque: '',
-            modele: '',
-            immatriculation: '',
-            kilometrage: null,
-            statut: 'Disponible',
-          };
-        },
-        (error) => {
-          console.error("Erreur lors de l'ajout du camion:", error);
-        }
-      );
-    }
+ajouterCamion() {
+  if (!this.isFormValid()) {
+    Swal.fire('Erreur', 'Veuillez remplir tous les champs obligatoires', 'error');
+    return;
   }
+
+  if (!this.checkImmatriculationUnique(this.nouveauCamion.immatriculation)) {
+    Swal.fire('Erreur', 'Cette immatriculation est déjà utilisée par un autre camion', 'error');
+    return;
+  }
+
+  const camionData = {
+    ...this.nouveauCamion,
+  };
+
+  this.camionService.addCamion(camionData).subscribe(
+    (data) => {
+      this.camions.push(data);
+      this.nouveauCamion = {
+        id: 0,
+        marque: '',
+        modele: '',
+        immatriculation: '',
+        kilometrage: null,
+        statut: 'Disponible',
+      };
+      Swal.fire('Succès', 'Camion ajouté avec succès', 'success');
+    },
+    (error) => {
+      console.error("Erreur lors de l'ajout du camion:", error);
+      Swal.fire('Erreur', "Une erreur s'est produite lors de l'ajout", 'error');
+    }
+  );
+}
   
 
   supprimerCamion(id: number) {
@@ -132,29 +142,34 @@ export class CamionsComponent implements OnInit {
  
   
 
-  sauvegarderModification() {
-    if (!this.camionEnCours.marque || !this.camionEnCours.modele || !this.camionEnCours.immatriculation || this.camionEnCours.kilometrage <= 0) {
-      alert('Veuillez remplir tous les champs valides.');
-      return;
-    }
-  
-    const camionModifie = {
-      ...this.camionEnCours,
-      
-    };
-  
-    this.camionService.updateCamion(camionModifie).subscribe(
-      () => {
-        this.loadCamions();
-        this.closeModal();
-      },
-      (error) => {
-        console.error('Erreur lors de la mise à jour du camion:', error);
-        alert("Une erreur est survenue lors de la modification du camion.");
-      }
-    );
+sauvegarderModification() {
+  if (!this.camionEnCours.marque || !this.camionEnCours.modele || 
+      !this.camionEnCours.immatriculation || this.camionEnCours.kilometrage <= 0) {
+    Swal.fire('Erreur', 'Veuillez remplir tous les champs valides', 'error');
+    return;
   }
-  
+
+  if (!this.checkImmatriculationUnique(this.camionEnCours.immatriculation, this.camionEnCours.id)) {
+    Swal.fire('Erreur', 'Cette immatriculation est déjà utilisée par un autre camion', 'error');
+    return;
+  }
+
+  const camionModifie = {
+    ...this.camionEnCours,
+  };
+
+  this.camionService.updateCamion(camionModifie).subscribe(
+    () => {
+      this.loadCamions();
+      this.closeModal();
+      Swal.fire('Succès', 'Camion modifié avec succès', 'success');
+    },
+    (error) => {
+      console.error('Erreur lors de la mise à jour du camion:', error);
+      Swal.fire('Erreur', "Une erreur est survenue lors de la modification", 'error');
+    }
+  );
+}
 
   editCamion(id: number): void {
   this.camionService.getCamion(id).subscribe(data => {
@@ -169,6 +184,12 @@ export class CamionsComponent implements OnInit {
   });
 }
 
+// Ajoutez cette méthode dans votre composant
+checkImmatriculationUnique(immatriculation: string, excludeId: number = 0): boolean {
+  return !this.camions.some(c => 
+    c.immatriculation === immatriculation && c.id !== excludeId
+  );
+}
 
   closeModal() {
     this.camionEnCours = null;

@@ -128,57 +128,6 @@ resetForm(): void {
 }
 
 
-  editCompartiment(id: number): void {
-    this.compartimentService.getCompartiment(id).subscribe({
-      next: (data) => this.compartimentEnCours = { ...data },
-      error: () => alert('Erreur lors du chargement du compartiment.')
-    });
-  }
-
-  sauvegarderModification(): void {
-    const comp = this.compartimentEnCours;
-
-    if (!this.isFormValidEdit()) {
-      alert('Veuillez remplir tous les champs valides.');
-      return;
-    }
-
-    this.citerneService.getCiterne(this.citerneIdFromUrl!).subscribe({
-      next: (citerne) => {
-        if (comp.capaciteMax > citerne.capacite) {
-          alert('Capacité du compartiment > capacité de la citerne.');
-          return;
-        }
-
-        const payload = {
-          ...comp,
-          citerne: { id: this.citerneIdFromUrl }
-        };
-
-        this.compartimentService.updateCompartiment(payload).subscribe({
-          next: () => {
-            alert('Compartiment modifié.');
-            this.getCompartiments();
-            this.closeModal();
-          },
-          error: () => alert('Erreur lors de la modification.')
-        });
-      },
-      error: () => alert('Erreur lors de la vérification de la citerne.')
-    });
-  }
-
-  supprimerCompartiment(id: number): void {
-    if (!confirm('Confirmez la suppression ?')) return;
-
-    this.compartimentService.deleteCompartiment(id).subscribe({
-      next: () => {
-        alert('Compartiment supprimé.');
-        this.getCompartiments();
-      },
-      error: () => alert('Erreur lors de la suppression.')
-    });
-  }
 
   closeModal(): void {
     this.compartimentEnCours = null;

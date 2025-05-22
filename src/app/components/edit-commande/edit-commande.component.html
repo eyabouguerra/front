@@ -35,7 +35,19 @@
             />
           </div>
           
-          
+               
+<!-- Client -->
+<div class="mb-3">
+  <label class="form-label gradient-text">Client :</label>
+  <select formControlName="clientId" class="form-control">
+    <option *ngFor="let client of clients" [ngValue]="client.clientId">
+      {{ client.fullName }} ({{ client.contactNumber }})
+    </option>
+    <option [ngValue]="null">-- Aucun client --</option>
+  </select>
+</div>
+
+<!-- ... (reste du template inchangé) -->
   
           <!-- Quantité -->
           <div class="mb-3">

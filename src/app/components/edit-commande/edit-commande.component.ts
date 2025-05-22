@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Client } from 'src/app/model/client';
+import { ClientService } from 'src/app/services/client.service';
 import { CommandeService } from 'src/app/services/commande.service';
 import { ProduitService } from 'src/app/services/produit.service';
 import Swal from 'sweetalert2';
@@ -16,21 +18,23 @@ export class EditCommandeComponent implements OnInit {
   produits: any[] = [];
   nomProduitSelectionne: string = '';
   price: number = 0;
+   clients: Client[] = [];
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private commandeService: CommandeService,
-    private produitService: ProduitService
+    private produitService: ProduitService,
+    private clientService: ClientService
   ) {
-    this.commandeForm = this.fb.group({
-      codeCommande: [{ value: '', disabled: true }],
-      produitId: ['', Validators.required],
-      quantite: [1, [Validators.required, Validators.min(1)]],
-      dateCommande: ['', Validators.required],
-      price: [{ value: '', disabled: true }],
-      
-    });
+  this.commandeForm = this.fb.group({
+  codeCommande: ['', Validators.required],
+  clientId: [null, Validators.required], // Ajouté
+  produitId: ['', Validators.required],
+  quantite: [1, [Validators.required, Validators.min(1)]],
+  dateCommande: ['', Validators.required],
+  price: ['', Validators.required]
+});
   }
   getNomProduitParId(id: number): string {
     const produit = this.produits.find(p => p.id === id);
@@ -42,10 +46,23 @@ export class EditCommandeComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.loadProduits();
     this.loadCommande();
+      this.loadClients();
 
     this.commandeForm.get('produitId')?.valueChanges.subscribe(() => this.calculateTotalPrice());
     this.commandeForm.get('quantite')?.valueChanges.subscribe(() => this.calculateTotalPrice());
   }
+
+loadClients() {
+  this.clientService.getAllClients().subscribe(clients => {
+    this.clients = clients;
+  });
+}
+
+getClientName(clientId: number): string {
+  const client = this.clients.find(c => c.clientId === clientId);
+  return client ? client.fullName : 'Client inconnu';
+}
+
 
   loadCommande(): void {
     this.commandeService.getCommandeById(this.id).subscribe({
@@ -57,7 +74,8 @@ export class EditCommandeComponent implements OnInit {
           produitId: produitCommande?.produit?.id || '',
           quantite: produitCommande?.quantite || 1,
           dateCommande: commande.dateCommande,
-          price: commande.price
+          price: commande.price,
+            clientId: commande.client?.clientId || null
         });
         
         this.commandeForm.get('quantite')?.updateValueAndValidity();
@@ -102,62 +120,54 @@ export class EditCommandeComponent implements OnInit {
     }
   }
 
-  editCommande(): void {
-    if (this.commandeForm.invalid) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Formulaire incomplet',
-        text: 'Veuillez remplir tous les champs obligatoires.',
-        confirmButtonColor: '#ffc107'
-      });
-      return;
-    }
-  
-    const formValues = this.commandeForm.getRawValue();
-  
-    const commandeToUpdate = {
-      id: this.id,
-      codeCommande: formValues.codeCommande,
-      dateCommande: formValues.dateCommande,
-      quantite: formValues.quantite,
-      price: this.price,
-      produits: [{ id: formValues.produitId }]
-    };
-  
-    this.commandeService.updateCommande(commandeToUpdate).subscribe({
-      next: () => {
-        // Recharger les données depuis le backend (au cas où d'autres champs sont modifiés automatiquement)
-        this.commandeService.getCommandeById(this.id).subscribe((updatedCommande) => {
-          this.commandeForm.patchValue({
-            quantite: updatedCommande.quantite,
-            dateCommande: updatedCommande.dateCommande,
-            price: updatedCommande.price,
-            produitId: Array.isArray(updatedCommande.produits) && updatedCommande.produits.length > 0 
-    ? updatedCommande.produits[0].id 
-    : null
-   
-
-          });
-  
-          Swal.fire({
-            icon: 'success',
-            title: 'Succès',
-            text: 'Commande mise à jour avec succès !',
-            confirmButtonColor: '#198754'
-          }).then(() => {
-            this.router.navigate(['/commandes']);
-          });
-        });
-      },
-      error: () => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Échec de la mise à jour de la commande.',
-          confirmButtonColor: '#dc3545'
-        });
-      }
+editCommande(): void {
+  if (this.commandeForm.invalid) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Formulaire incomplet',
+      text: 'Veuillez remplir tous les champs obligatoires.',
+      confirmButtonColor: '#ffc107'
     });
+    return;
   }
+
+  const formValues = this.commandeForm.getRawValue();
+
+  // Préparer l'objet commande avec le client
+  const commandeToUpdate = {
+    id: this.id,
+    codeCommande: formValues.codeCommande,
+    dateCommande: formValues.dateCommande,
+    quantite: formValues.quantite,
+    price: this.price,
+    client: formValues.clientId ? { clientId: formValues.clientId } : null,
+    commandeProduits: [{
+      produit: { id: formValues.produitId },
+      quantite: formValues.quantite
+    }]
+  };
+
+  this.commandeService.updateCommande(commandeToUpdate).subscribe({
+    next: (updatedCommande) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Succès',
+        text: 'Commande mise à jour avec succès !',
+        confirmButtonColor: '#198754'
+      }).then(() => {
+        this.router.navigate(['/commandes']);
+      });
+    },
+    error: (error) => {
+      console.error('Erreur lors de la mise à jour:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Échec de la mise à jour de la commande.',
+        confirmButtonColor: '#dc3545'
+      });
+    }
+  });
+}
   
 }

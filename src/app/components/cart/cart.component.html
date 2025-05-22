@@ -7,7 +7,8 @@
         <div class="table-responsive">
           <div class="container mt-5">
             <div align="right" class="mb-3">
-              <button (click)="openOrderModal()" color="warning" mat-raised-button>Validez la commande</button>
+<button (click)="openOrderModal()" mat-raised-button class="custom-warning-button">Validez la commande</button>
+
             </div>
           </div><br>
           <table class="table">
@@ -42,7 +43,7 @@
               </tr>
             </tbody>
           </table>
-          <h4>Total: {{ total }} TND</h4>
+          <h4 style="text-align: right; font-weight: bold;">Total: {{ total }} TND</h4>
         </div>
       </div>
     </div>
