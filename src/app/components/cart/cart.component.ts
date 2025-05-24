@@ -1,8 +1,12 @@
+// src/app/cart/cart.component.ts
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { ProduitService } from 'src/app/services/produit.service';
+import { CommandeService } from 'src/app/services/commande.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { OrderServiceService } from 'src/app/services/order_service';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +17,7 @@ export class CartComponent implements OnInit {
   cartItems: any[] = [];
   total: number = 0;
   showOrderModal: boolean = false;
-  
+
   orderDetails: any = {
     fullName: '',
     fullAddress: '',
@@ -25,8 +29,10 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private produitService: ProduitService,
+    private commandeService: CommandeService, // Ajouter CommandeService
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private orderService: OrderServiceService
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +47,16 @@ export class CartComponent implements OnInit {
           quantity: item.quantity || 1
         }));
         this.getTotalPrice();
-        // Préparer les produits pour la commande
         this.prepareOrderProductList();
       },
       error => {
-        console.error("Erreur de récupération du panier", error);
+        console.error('Erreur de récupération du panier', error);
+        Swal.fire({
+          title: 'Erreur !',
+          text: 'Erreur lors de la récupération du panier.',
+          icon: 'error',
+          confirmButtonColor: '#d33'
+        });
       }
     );
   }
@@ -55,41 +66,50 @@ export class CartComponent implements OnInit {
       const item = this.cartItems.find(item => item.product.codeProduit === codeProduit);
       if (item) {
         item.quantity = quantity;
-        this.cartItems = [...this.cartItems];  // Crée une nouvelle référence pour forcer Angular à détecter les changements
-        this.getTotalPrice();  // Recalcule le total
-        this.prepareOrderProductList(); // Met à jour la liste des produits pour la commande
+        this.cartItems = [...this.cartItems];
+        this.getTotalPrice();
+        this.prepareOrderProductList();
       }
     } else {
-      alert("La quantité ne peut pas être inférieure à 1");
+      Swal.fire({
+        title: 'Erreur !',
+        text: 'La quantité ne peut pas être inférieure à 1.',
+        icon: 'error',
+        confirmButtonColor: '#d33'
+      });
     }
   }
 
   getTotalPrice(): void {
     this.total = this.cartItems.reduce((acc, item) => acc + (item.product.prix * item.quantity), 0);
-    this.cdr.detectChanges();  // Force la détection des changements
+    this.cdr.detectChanges();
   }
 
   removeItem(id: number): void {
     if (!id) {
-      console.error("ID invalide !");
+      console.error('ID invalide !');
       return;
     }
-  
+
     this.cartService.removeFromCart(id).subscribe(
-      (response) => {
-        console.log('Réponse du backend:', response);
+      () => {
         this.cartItems = this.cartItems.filter(item => item.product.id !== id);
         this.getTotalPrice();
-        this.prepareOrderProductList(); // Met à jour la liste des produits pour la commande
+        this.prepareOrderProductList();
         this.cdr.detectChanges();
       },
-      (error) => {
+      error => {
         console.error('Erreur lors de la suppression :', error);
+        Swal.fire({
+          title: 'Erreur !',
+          text: 'Erreur lors de la suppression de l\'article.',
+          icon: 'error',
+          confirmButtonColor: '#d33'
+        });
       }
     );
   }
-  
-  // Préparation de la liste des produits pour la commande
+
   prepareOrderProductList(): void {
     this.orderDetails.orderProductQuantityList = this.cartItems.map(item => ({
       id: item.product.id,
@@ -97,10 +117,14 @@ export class CartComponent implements OnInit {
     }));
   }
 
-  // Gestion du modal
   openOrderModal(): void {
     if (this.cartItems.length === 0) {
-      alert("Votre panier est vide. Veuillez ajouter des produits avant de valider la commande.");
+      Swal.fire({
+        title: 'Panier vide !',
+        text: 'Veuillez ajouter des produits avant de valider la commande.',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6'
+      });
       return;
     }
     this.showOrderModal = true;
@@ -108,29 +132,113 @@ export class CartComponent implements OnInit {
 
   closeOrderModal(): void {
     this.showOrderModal = false;
+    // Reset form data
+    this.orderDetails = {
+      fullName: '',
+      fullAddress: '',
+      contactNumber: '',
+      alternateContactNumber: '',
+      orderProductQuantityList: this.orderDetails.orderProductQuantityList
+    };
   }
 
+  // Fonction corrigée pour créer une commande complète
   placeOrder(orderForm: NgForm): void {
     if (this.orderDetails.orderProductQuantityList.length === 0) {
-      alert("Votre panier est vide!");
+      Swal.fire({
+        title: 'Erreur !',
+        text: 'Votre panier est vide !',
+        icon: 'error',
+        confirmButtonColor: '#d33'
+      });
       return;
     }
 
-    this.produitService.placeOrder(this.orderDetails).subscribe(
+    // Préparer les données de la commande au format attendu par le backend
+    const commandeData = {
+      codeCommande: this.generateCommandeCode(),
+      dateCommande: new Date().toISOString(),
+      price: this.total,
+      client: {
+        fullName: this.orderDetails.fullName,
+        fullAddress: this.orderDetails.fullAddress,
+        contactNumber: this.orderDetails.contactNumber,
+        alternateContactNumber: this.orderDetails.alternateContactNumber || null
+      },
+      commandeProduits: this.orderDetails.orderProductQuantityList.map((item: any) => {
+        const cartItem = this.cartItems.find(ci => ci.product.id === item.id);
+        return {
+          produit: {
+            id: item.id,
+            nomProduit: cartItem?.product.nomProduit,
+            prix: cartItem?.product.prix,
+            codeProduit: cartItem?.product.codeProduit,
+            libelle: cartItem?.product.libelle
+          },
+          quantite: item.quantity
+        };
+      })
+    };
+
+    console.log('Données de commande à envoyer:', commandeData);
+
+    // Utiliser CommandeService au lieu de ProduitService
+    this.commandeService.addCommande(commandeData).subscribe(
       (response) => {
-        console.log('Commande placée avec succès:', response);
+        console.log('Commande créée avec succès:', response);
         this.closeOrderModal();
         orderForm.reset();
-        // Vider le panier
-        this.cartItems = [];
-        this.getTotalPrice();
-        // Rediriger vers la page de confirmation
-        this.router.navigate(['/orderConfirm']);
+        
+        // Notifier les autres composants
+        this.orderService.notifyOrderPlaced();
+
+        // Vider le panier côté service
+        this.clearCartAfterOrder();
+
+        // Afficher le message de succès
+        Swal.fire({
+          title: 'Succès !',
+          text: `Votre commande ${commandeData.codeCommande} a été passée avec succès.`,
+          icon: 'success',
+          confirmButtonColor: '#28a745'
+        }).then(() => {
+          // Naviguer vers la page des commandes
+          this.router.navigate(['/commandes']);
+        });
       },
       (error) => {
-        console.error('Erreur lors du placement de la commande:', error);
-        alert("Une erreur s'est produite lors du placement de la commande. Veuillez réessayer.");
+        console.error('Erreur lors de la création de la commande:', error);
+        Swal.fire({
+          title: 'Erreur !',
+          text: 'Une erreur s\'est produite lors du placement de la commande. Veuillez réessayer.',
+          icon: 'error',
+          confirmButtonColor: '#d33'
+        });
       }
     );
+  }
+
+  // Générer un code de commande unique
+  private generateCommandeCode(): string {
+    const timestamp = Date.now();
+    const random = Math.floor(Math.random() * 1000);
+    return `CMD-${timestamp}-${random}`;
+  }
+
+  // Vider le panier après une commande réussie
+  private clearCartAfterOrder(): void {
+    // Supprimer tous les articles du panier
+    const deletePromises = this.cartItems.map(item => 
+      this.cartService.removeFromCart(item.product.id).toPromise()
+    );
+
+    Promise.all(deletePromises).then(() => {
+      this.cartItems = [];
+      this.total = 0;
+      this.orderDetails.orderProductQuantityList = [];
+      this.cdr.detectChanges();
+    }).catch(error => {
+      console.error('Erreur lors du vidage du panier:', error);
+    });
   }
 }

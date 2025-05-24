@@ -35,21 +35,21 @@
           </div>
 
           <!-- Client selection -->
-          <div class="mb-3 form-group">
-            <label for="client" class="form-label">Client</label>
-            <div class="input-group">
-         <select id="client" formControlName="client" class="form-control">
-  <option [ngValue]="null" disabled>Sélectionnez un client</option>
-  <option *ngFor="let client of clients" [ngValue]="client.clientId">{{ client.fullName }}</option>
-</select>
-            <button type="button" class="btn btn-outline-primary" (click)="openAddClientDialog()" style="background-color: rgb(247, 183, 51); border-color: rgb(247, 183, 51); color: black;">
-  <i class="fa fa-plus me-2"></i>Nouveau Client
-</button>
-            </div>
-            <div *ngIf="addCommandeForm.get('client')?.touched && addCommandeForm.get('client')?.hasError('required')" class="invalid-feedback">
-              La sélection d'un client est requise.
-            </div>
-          </div>
+<div class="mb-3 form-group">
+  <label for="client" class="form-label">Client</label>
+  <div class="input-group">
+    <select id="client" formControlName="client" class="form-control">
+      <option [ngValue]="null" disabled>Sélectionnez un client</option>
+      <option *ngFor="let client of clients" [ngValue]="client.clientId">{{ client.fullName }}</option>
+    </select>
+    <button type="button" class="btn btn-outline-primary" (click)="openAddClientDialog()" style="background-color: rgb(247, 183, 51); border-color: rgb(247, 183, 51); color: black;">
+      <i class="fa fa-plus me-2"></i>Nouveau Client
+    </button>
+  </div>
+  <div *ngIf="addCommandeForm.get('client')?.touched && addCommandeForm.get('client')?.hasError('required')" class="invalid-feedback">
+    La sélection d'un client est requise.
+  </div>
+</div>
 
           <!-- Choix multi-produits -->
           <div class="mb-4">

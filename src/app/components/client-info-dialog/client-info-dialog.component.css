@@ -1,26 +1,66 @@
-.custom-button {
-  background-color: #f7b733; /* couleur principale (orange) */
+.modal-dialog {
+  max-width: 550px; /* Augmenter la largeur */
+  margin: 1.5rem auto; /* Centrer avec un léger décalage */
+  top: 10%; /* Positionner plus haut */
+}
+
+.modal-content {
+  padding: 20px; /* Padding interne */
+  background-color: #f8f9fa; /* Fond clair */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6; /* Séparateur */
+  padding: 15px 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #343a40; /* Couleur sombre pour le titre */
+}
+
+.form-control {
+  border: 1px solid #ced4da; /* Bordure des champs */
+  border-radius: 5px; /* Coins arrondis */
+  padding: 10px; /* Padding interne */
+  transition: border-color 0.3s ease; /* Animation de transition */
+}
+
+.form-control:focus {
+  border-color: #f7b733; /* Couleur de focus orange */
+  box-shadow: 0 0 5px rgba(247, 183, 51, 0.3); /* Ombre au focus */
+}
+
+.btn-primary {
+  background-color: #f7b733; /* Orange pour le bouton principal */
+  border-color: #f7b733;
   color: #fff;
+  padding: 10px 20px;
   font-weight: bold;
 }
 
-.custom-button:hover {
-  background-color: #e09e2c; /* légèrement plus foncé au hover */
+.btn-primary:hover {
+  background-color: #e09e2c; /* Variation au survol */
+  border-color: #e09e2c;
 }
 
-.cancel-button {
-  background-color: #666;
+.btn-secondary {
+  background-color: #6c757d; /* Gris pour Annuler */
+  border-color: #6c757d;
   color: #fff;
+  padding: 10px 20px;
   font-weight: bold;
 }
 
-.cancel-button:hover {
-  background-color: #444;
+.btn-secondary:hover {
+  background-color: #5a6268; /* Variation au survol */
+  border-color: #5a6268;
 }
 
-mat-dialog-container {
-  padding: 20px !important;
-  border-radius: 10px;
-  max-width: 450px !important;
-  min-height: auto !important;
+.modal-footer {
+  border-top: 1px solid #dee2e6; /* Séparateur */
+  padding: 15px 20px;
 }

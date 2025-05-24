@@ -9,6 +9,18 @@ section{
   color: black; /* pour une bonne lisibilité */
 }
 
-.custom-warning-button:hover {
-  background-color: rgb(247, 183, 51); /* couleur au survol */
+.custom-modal-dialog {
+  max-width: 550px; /* Augmenter la largeur */
+  margin: 2rem auto; /* Ajuster les marges */
+}
+
+.modal-content {
+  padding: 25px; /* Augmenter le padding interne */
+}
+
+
+.btn-primary {
+  background-color: rgb(247, 183, 51); /* Nouvelle couleur du bouton */
+  border-color: rgb(247, 183, 51);
+  color: white;
 }

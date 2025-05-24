@@ -7,7 +7,13 @@
         <div class="table-responsive">
           <div class="container mt-5">
             <div align="right" class="mb-3">
-<button (click)="openOrderModal()" mat-raised-button class="custom-warning-button">Validez la commande</button>
+<button 
+  (click)="openOrderModal()" 
+  mat-raised-button 
+  class="custom-warning-button" 
+  [disabled]="cartItems.length === 0">
+  Validez la commande
+</button>
 
             </div>
           </div><br>
@@ -38,7 +44,7 @@
                 </td>
                 <td class="align-middle">{{ item.product.prix * item.quantity }} TND</td>
                 <td class="align-middle">
-                    <button class="btn btn-danger" (click)="removeItem(item.product.id)">Supprimer</button>
+                  <button class="btn btn-danger" (click)="removeItem(item.product.id)">Supprimer</button>
                 </td>
               </tr>
             </tbody>
@@ -50,7 +56,6 @@
   </div>
 </section>
 
-<!-- Modal pour les informations client -->
 <div class="modal" tabindex="-1" [ngClass]="{'show': showOrderModal}" [ngStyle]="{'display': showOrderModal ? 'block' : 'none'}">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -72,8 +77,10 @@
           </div>
           <div class="form-group mb-3">
             <label for="contactNumber" class="form-label">Numéro de téléphone</label>
-            <input type="text" id="contactNumber" class="form-control" 
-                  [(ngModel)]="orderDetails.contactNumber" name="contactNumber" required>
+          <input type="text" id="contactNumber" class="form-control" 
+  [(ngModel)]="orderDetails.contactNumber" 
+  name="contactNumber" required pattern="^[0-9]{8,15}$">
+
           </div>
           <div class="form-group mb-3">
             <label for="alternateContactNumber" class="form-label">Autre numéro de téléphone (optionnel)</label>
@@ -89,5 +96,4 @@
     </div>
   </div>
 </div>
-<!-- Overlay pour le modal -->
 <div class="modal-backdrop fade show" *ngIf="showOrderModal"></div>
