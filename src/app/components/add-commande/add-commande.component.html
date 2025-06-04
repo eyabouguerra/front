@@ -1,0 +1,119 @@
+<body>
+  <div class="container page-container outer">
+    <div class="row">
+      <div class="col-12">
+        <div class="header-container">
+          <h1 class="gradient-text">
+            <i class="fa fa-plus-circle me-2"></i> Ajouter une commande
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 mb-5">
+      <div class="form-card h-100">
+        <form [formGroup]="addCommandeForm" (ngSubmit)="addCommande()">
+          <!-- Code commande avec bouton de génération -->
+          <div class="mb-3 form-group">  
+            <label for="codeCommande" class="form-label">Code du commande</label>
+            <div class="input-group">
+              <input type="text" id="codeCommande" formControlName="codeCommande" class="form-control"
+                     placeholder="Entrez le code unique du commande" readonly />
+              <button type="button" class="btn btn-outline-secondary" (click)="genererCodeCommande()">Générer</button>
+            </div>
+            <div *ngIf="addCommandeForm.get('codeCommande')?.touched">
+              <div *ngIf="addCommandeForm.get('codeCommande')?.hasError('required')" class="invalid-feedback">
+                Le code du commande est requis.
+              </div>
+              <div *ngIf="addCommandeForm.get('codeCommande')?.hasError('pattern')" class="invalid-feedback">
+                Le code ne doit contenir que lettres, chiffres, tirets ou underscores.
+              </div>
+              <div *ngIf="addCommandeForm.get('codeCommande')?.hasError('codeCommandeExists')" class="invalid-feedback">
+                Ce code de commande est déjà utilisé.
+              </div>
+            </div>
+          </div>
+
+          <!-- Client selection -->
+          <div class="mb-3 form-group">
+            <label for="client" class="form-label">Client</label>
+            <div class="input-group">
+              <select id="client" formControlName="client" class="form-control select-large custom-select-placeholder">
+                <option [ngValue]="null" disabled>Sélectionner un client</option>
+
+                <option *ngFor="let client of clients" [value]="client.clientId">{{ client.fullName }}</option>
+              </select>
+              
+              <button type="button" class="btn btn-outline-primary btnn" (click)="openAddClientDialog()" style="background-color: rgb(247, 183, 51); border-color: rgb(247, 183, 51); color: black;">
+          <i class="fa fa-plus me-2"></i>Nouveau Client
+        </button>
+            </div>
+            <div *ngIf="addCommandeForm.get('client')?.touched && addCommandeForm.get('client')?.hasError('required')" class="invalid-feedback">
+              La sélection d'un client est requise.
+            </div>
+          </div>
+
+          <!-- Choix multi-produits -->
+          <div class="mb-4">
+            <label class="form-label">Produits</label>
+            <div *ngFor="let type of typeProduitsAvecProduits">
+              <h3>{{ type.name }}</h3>
+              <div *ngFor="let produit of type.produits">
+                <input type="checkbox" [value]="produit" (change)="onProduitToggle($event, produit)">
+                {{ produit.nomProduit }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Liste des produits sélectionnés avec quantité -->
+          <div formArrayName="produits">
+            <div *ngFor="let groupe of produitsFormArray.controls; let i = index" [formGroupName]="i" class="mb-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <label class="form-label">{{ getNomProduit(groupe.get('produit')?.value) }}</label>
+                <span class="badge bg-warning" style="color: black;">Prix : {{ prixProduitsSelectionnes[i] || 0 }} TND</span>
+              </div>
+              <input type="number" formControlName="quantite" class="form-control mt-1" min="1" />
+              <div *ngIf="groupe.get('quantite')?.invalid && groupe.get('quantite')?.touched" class="text-danger">
+                Quantité invalide (minimum 1)
+              </div>
+              <div>
+                <span class="text-muted">Code de commande : {{ addCommandeForm.get('codeCommande')?.value }}</span>
+                <span class="text-muted">Date : {{ addCommandeForm.get('dateCommande')?.value }}</span>
+              </div>
+              <button type="button" class="btn btn-sm btn-danger mt-2" (click)="retirerProduit(i)">Retirer</button>
+            </div>
+          </div>
+
+
+
+          <!-- Champ Prix total -->
+          <div class="mb-4">
+            <label for="totalPrice" class="form-label">
+              <i class="fa fa-tags me-2"></i>Prix total
+            </label>
+            <input formControlName="totalPrice" type="number" class="form-control" placeholder="Prix total" readonly>
+          </div>
+
+          <!-- Boutons -->
+          <div class="mb-3 d-flex mt-4">
+            <button type="submit" class="btn btn-warning ms-3" [disabled]="addCommandeForm.invalid || isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              <i class="fa fa-save me-2"></i>Ajouter
+            </button>
+            <button type="button" class="custom-btn-outline ms-3" (click)="_dialogRef.close()">
+              <i class="fa fa-times me-2"></i>Annuler
+            </button>
+          </div>
+
+          <!-- Message de succès / échec -->
+          <div *ngIf="isSuccessful" class="alert alert-success">
+            <i class="fa fa-check-circle me-2"></i>Commande ajoutée avec succès !
+          </div>
+          <div *ngIf="isFailed" class="alert alert-danger">
+            <i class="fa fa-exclamation-triangle me-2"></i>{{ errorMessage || 'Erreur lors de l\'ajout de la commande.' }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>

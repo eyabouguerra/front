@@ -1,0 +1,72 @@
+ /* Personnalisation du FullCalendar */
+ full-calendar {
+
+   max-width: 50%;
+   margin: 0 auto;
+
+   margin-left: 30em;
+ }
+
+ 
+.lo {
+
+  font-weight: bold;
+  margin-right: -10em;
+  margin-top: 2em;
+
+}
+
+ .btn-outline-info {
+   border-color: #000 !important;
+   color: #000 !important;
+   background-color: transparent !important;
+ }
+
+ .btn-outline-info:hover {
+   background-color: #000 !important;
+   border-color: #000 !important;
+   color: white !important;
+ }
+
+ .full-calendar .fc {
+   border-radius: 8px;
+   border: 1px solid #d97c09;
+ }
+
+ /* Personnalisation de l'en-tête */
+ .fc-toolbar {
+   background-color: #f5aa1e;
+   color: white;
+ }
+
+ button {
+   position: relative;
+   right: -80%;
+
+ }
+
+ /* Fond noir et texte blanc dans le calendrier */
+ ::ng-deep .fc {
+
+   color: rgb(41, 37, 36);
+ }
+
+ .archives-section {
+   margin-left: 10em;
+ }
+
+ /* Couleur personnalisée pour les titres */
+ ::ng-deep .fc .fc-toolbar-title {
+   color: rgb(41, 37, 36);
+ }
+
+ /* Bordures et boutons */
+ ::ng-deep .fc-button {
+   background-color: #333;
+   border: none;
+   color: white;
+ }
+
+ .calendar-container {
+   padding: 20px;
+ }

@@ -1,0 +1,13 @@
+<li class="nav-item">
+    <a class="nav-link text-white" (click)="toggleOpen($event)">
+      <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+        <img *ngIf="icon" [src]="icon" alt="Icon" width="20" height="20">
+
+      </div>
+      <span class="nav-link-text ms-1" [innerHTML]="title"></span>
+
+    </a>
+    <div *ngIf="isOpen" class="menu-content">
+        <ng-content></ng-content>  
+    </div>
+</li>

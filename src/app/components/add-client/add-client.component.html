@@ -1,0 +1,53 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Ajouter un nouveau client</h2>
+      <button type="button" class="btn-close" (click)="cancel()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addClientForm" (ngSubmit)="addClient()">
+        <!-- Full Name -->
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Nom complet</label>
+          <input type="text" id="fullName" formControlName="fullName" class="form-control" placeholder="Entrez le nom complet" />
+          <div *ngIf="addClientForm.get('fullName')?.touched && addClientForm.get('fullName')?.invalid" class="text-danger">
+            Le nom complet est requis.
+          </div>
+        </div>
+  
+        <!-- Full Address -->
+        <div class="mb-3">
+          <label for="fullAddress" class="form-label">Adresse complète</label>
+          <input type="text" id="fullAddress" formControlName="fullAddress" class="form-control" placeholder="Entrez l'adresse" />
+          <div *ngIf="addClientForm.get('fullAddress')?.touched && addClientForm.get('fullAddress')?.invalid" class="text-danger">
+            L'adresse est requise.
+          </div>
+        </div>
+  
+        <!-- Contact Number -->
+        <div class="mb-3">
+          <label for="contactNumber" class="form-label">Numéro de contact</label>
+          <input type="text" id="contactNumber" formControlName="contactNumber" class="form-control" placeholder="Entrez le numéro de contact" />
+          <div *ngIf="addClientForm.get('contactNumber')?.touched && addClientForm.get('contactNumber')?.invalid" class="text-danger">
+            <div *ngIf="addClientForm.get('contactNumber')?.hasError('required')">
+              Le numéro de contact est requis.
+            </div>
+            <div *ngIf="addClientForm.get('contactNumber')?.hasError('pattern')">
+              Veuillez entrer un numéro de téléphone valide.
+            </div>
+          </div>
+        </div>
+  
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Annuler</button>
+      <button type="button" class="btn btn-primary"   (click)="addClient()" [disabled]="addClientForm.invalid || isLoading" >
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" ></span>
+        Ajouter
+      </button>
+    </div>
+  </div>

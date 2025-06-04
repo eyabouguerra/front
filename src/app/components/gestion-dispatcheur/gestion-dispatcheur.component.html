@@ -1,0 +1,71 @@
+<app-header2></app-header2>
+<app-dash-admin></app-dash-admin>
+<body class="lolo outer ">
+<div class="container-fluid py-1">
+  <h2 class="text-white text-capitalize ps-4 copperplate-title text-center fs-4" style="margin-top: 3em;">
+    <b>la liste des dispatcheurs</b>
+  </h2>
+  <div class="row table-small">
+    <div class="search-input-wrapper">
+      <i class="fas fa-search"></i>
+      <input [(ngModel)]="searchText" placeholder="Rechercher..." type="text" class="form-control custom-search"
+        (input)="filterDispatcheurs()" />
+    </div>
+    <div class="row table-small" >
+      <div class="col-12 panell" style="margin-left: 18em;">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="background shadow-primary border-radius-lg pt-4 pb-3">
+              <h3 class="text-white text-capitalize ps-4 copperplate-title"><b>Tableau des dispatcheurs</b></h3>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0" >
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr class="table-header">
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2r">Prénom</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom de famille</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nom d'utilisateur</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Adresse email</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mot de passe</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let elt of filteredDispatcheurs | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+                      <td class="text-center">
+                        <h6 class="mb-0 text-sm">{{ elt.userFirstName }}</h6>
+                      </td>
+                      <td class="text-center">
+                        <h6 class="mb-0 text-sm">{{ elt.userLastName }}</h6>
+                      </td>
+                      <td class="text-center">
+                        <h6 class="mb-0 text-sm">{{ elt.userName }}</h6>
+                      </td>
+                      <td class="text-center">
+                            <h6 class="mb-0 text-sm">{{ elt.email }}</h6> 
+                      </td>
+                      <td class="text-center">
+                        <h6 class="mb-0 text-sm">{{ elt.userPassword}}</h6>
+                      </td>
+                      
+                      <td class="text-center">
+                        <button type="button" class="btn btn-outline-dark" (click)="deleteDispatcheur(elt.userName)"><i class="fa-solid fa-trash"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+              </table>
+              <div class="pagination-container text-center mt-3">
+                <pagination-controls (pageChange)="page = $event" previousLabel="Précédent" nextLabel="Suivant"
+                  [autoHide]="true" [directionLinks]="true">
+                
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </body>

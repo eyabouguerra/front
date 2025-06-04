@@ -1,0 +1,93 @@
+<div class="luxurious-form-wrapper">
+  <div class="container mt-1">
+    <div class="text-center">
+      <h2 class="h3 fw-bold">
+        Ajouter un produit
+      </h2>
+    </div>
+
+    <div class="add-produit-form">
+      <form *ngIf="produitForm" [formGroup]="produitForm" (ngSubmit)="saveProduit()">
+        <!-- Code produit avec bouton de génération -->
+<div class="mb-3 form-group">
+  <label for="codeProduit" class="form-label">Code du produit</label>
+  <div class="input-group">
+    <input type="text" id="codeProduit" formControlName="codeProduit" class="form-control"
+      placeholder="Entrez le code unique du produit" />
+    <button type="button" class="btn btn-outline-secondary" (click)="genererCodeProduit()">
+      Générer
+    </button>
+  </div>
+  <div *ngIf="produitForm.get('codeProduit')?.touched">
+    <div *ngIf="produitForm.get('codeProduit')?.hasError('required')" class="invalid-feedback">
+      Le code du produit est requis.
+    </div>
+    <div *ngIf="produitForm.get('codeProduit')?.hasError('pattern')" class="invalid-feedback">
+      Le code ne doit contenir que lettres, chiffres, tirets ou underscores.
+    </div>
+    <div *ngIf="produitForm.get('codeProduit')?.hasError('codeProduitExists')" class="invalid-feedback">
+      Ce code de produit est déjà utilisé.
+    </div>
+  </div>
+</div>
+
+
+        <!-- Nom du produit -->
+        <div class="mb-3 form-group">
+          <label for="nomProduit" class="form-label">Nom du produit</label>
+          <input type="text" id="nomProduit" formControlName="nomProduit" class="form-control"
+            placeholder="Entrez le nom du produit" />
+          <div *ngIf="produitForm.get('nomProduit')?.touched && produitForm.get('nomProduit')?.invalid" class="invalid-feedback">
+            Le nom du produit est requis.
+          </div>
+        </div>
+
+        <!-- Libellé -->
+        <div class="mb-3 form-group">
+          <label for="libelle" class="form-label">Libellé</label>
+          <input type="text" id="libelle" formControlName="libelle" class="form-control"
+            placeholder="Entrez un libellé" />
+        </div>
+
+        <!-- Prix -->
+        <div class="mb-3 form-group">
+          <label for="prix" class="form-label">Prix</label>
+          <div class="input-group">
+            <input type="number" id="prix" formControlName="prix" class="form-control" min="0" step="0.01"
+              placeholder="0.00" />
+            <span class="input-group-text">DT</span>
+          </div>
+          <div *ngIf="produitForm.get('prix')?.touched && produitForm.get('prix')?.invalid" class="invalid-feedback">
+            Le prix doit être un nombre positif.
+          </div>
+        </div>
+
+        <!-- Date -->
+        <!--<div class="mb-3 form-group">
+          <label for="date" class="form-label">Date d'ajout</label>
+          <input type="date" id="date" formControlName="date" class="form-control" readonly />
+          <small class="text-muted">Date système automatique</small>
+        </div>-->
+
+        <!-- Description -->
+        <div class="mb-3 form-group">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" formControlName="description" class="form-control" rows="4"
+            placeholder="Entrez une description détaillée du produit"></textarea>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="custom-btn" [disabled]="produitForm.invalid || loading">
+            <i class="fa fa-save"></i>
+            <span *ngIf="!loading">Ajouter</span>
+            <span *ngIf="loading">Chargement...</span>
+          </button>
+          <button type="button" class="custom-btn-outline" (click)="cancelAdd()">
+            <i class="fa fa-times"></i> Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

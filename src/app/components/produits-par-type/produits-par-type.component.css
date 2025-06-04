@@ -1,0 +1,237 @@
+
+.foul{
+    margin-left: 20em;
+}
+.lo{
+    font-weight: bold;
+}
+
+ 
+  .add{
+    right: -32em;
+   
+   
+   
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 20px;
+    padding: 20px;
+}
+.search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .search-input-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 16px;
+    pointer-events: none;
+  }
+  
+  
+  input.custom-search {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    font-size: 16px;
+    border: 2px solid #ffc107;
+    border-radius: 30px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  input.custom-search:focus {
+    outline: none;
+    border-color: #e0a800;
+    box-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+  }
+
+.col-sm-6.col-lg-6 {
+    flex: 1 1 calc(50% - 20px); /* Pour s'adapter sur deux colonnes */
+    max-width: 500px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.col-sm-6.col-lg-6:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/12.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    color: white; /* Le texte reste noir */
+ 
+}
+button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.single_page_btn {
+    margin-top: 10px; /* Ajoute un petit espace au-dessus si nécessaire */
+}
+
+/* Calque semi-transparent sur l'image */
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(128, 128, 128, 0.4); /* Gris avec une transparence de 40% */
+    z-index: 1; /* Met le calque au-dessus de l'image */
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Le texte passe au-dessus du calque transparent */
+}
+
+h3{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+b{
+    font-size: 1.2em;
+}
+span{
+    color: red;
+    font-size: 1.2em;
+
+}
+.custom-button-group {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    gap: 1rem; /* Espace entre les boutons */
+    background-color: war;
+}
+.single_page_btn {
+    display: block;
+    margin:  auto; /* Centre le bouton horizontalement */
+}
+section{
+   
+    margin-left: 2em;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    
+    gap: 20px;
+    padding: 20px;
+}
+
+.col-sm-6.col-lg-6 {
+    flex: 1 1 calc(50% - 20px); /* Pour s'adapter sur deux colonnes */
+    max-width: 500px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.col-sm-6.col-lg-6:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.single_food_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.media-body {
+    flex: 1;
+}
+
+h3, h5, p {
+    margin: 7px 0;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+
+h3 b, h5 b, p b {
+    color: rgb(247, 183, 51);; /* Couleur d'accentuation */
+}
+
+span {
+    color: white;
+    font-weight: 500;
+}
+.sin{
+    left: 40em;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .col-sm-6.col-lg-6 {
+        flex: 1 1 100%;
+    }
+
+    .single_food_item {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/12.jpg');
+    background-repeat: no-repeat;
+    background-size: cover; /* Assure que l'image couvre toute la zone */
+    background-position: center center; /* Centre l'image */
+    padding: 20px; /* Ajoute du padding pour éviter que le texte colle aux bords */
+    min-height: 250px; /* Définit une hauteur minimale pour afficher correctement l'image */
+    color: white;
+    border-radius: 15px; /* Ajoute des coins arrondis */
+    overflow: hidden; /* Empêche le dépassement */
+}
+
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Ajoute un calque sombre pour améliorer la lisibilité du texte */
+    z-index: 1;
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Place le texte au-dessus du calque sombre */
+}
+
+
+
+
+
+   
+
+
+

@@ -1,0 +1,114 @@
+<app-header2></app-header2>
+<app-dash-admin></app-dash-admin>
+<html>
+
+<body class="lola">
+  <div class="outer">
+    <div class="container">
+      <div class="row">
+        <div class="offset-md-2 col-md-8 offset-md-3">
+          <div class="panel border bg-white form-background">
+            <div class="panel-heading">
+              <h1 class="pt-3 font-weight-bold tt"><b>Créer un compte</b></h1>
+            </div>
+            <div class="panel-body p-3">
+              <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+                <!-- Prénom -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['userFirstName']?.dirty && registerForm.controls['userFirstName']?.errors?.['required']">
+                    <span class="fa fa-user p-2"></span>
+                    <input ngModel id="userFirstName" name="userFirstName" type="text" placeholder="Prénom" required>
+                  </div>
+                </div>
+                <small
+                  *ngIf="registerForm.controls['userFirstName']?.dirty && registerForm.controls['userFirstName']?.errors?.['required']"
+                  class="text-danger">*FirstName is required</small>
+
+                <!-- Nom -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['userLastName']?.dirty && registerForm.controls['userLastName']?.errors?.['required']">
+                    <span class="fa fa-user p-2"></span>
+                    <input ngModel id="userLastName" name="userLastName" type="text" placeholder="Nom" required>
+                  </div>
+                </div>
+                <small
+                  *ngIf="registerForm.controls['userLastName']?.dirty && registerForm.controls['userLastName']?.errors?.['required']"
+                  class="text-danger">*LastName is required</small>
+
+                <!-- Nom d'utilisateur -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['userName']?.dirty && registerForm.controls['userName']?.errors?.['required']">
+                    <span class="fa fa-user p-2"></span>
+                    <input ngModel id="userName" name="userName" type="text" placeholder="Nom d'utilisateur" required>
+                  </div>
+                </div>
+                <small
+                  *ngIf="registerForm.controls['userName']?.dirty && registerForm.controls['userName']?.errors?.['required']"
+                  class="text-danger">*UserName is required</small>
+
+                <!-- Email -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['email']?.dirty && registerForm.controls['email']?.errors?.['required']">
+
+                    <span class="fa fa-envelope p-2"></span>
+
+                    <input ngModel id="email" name="email" type="email" placeholder="Adresse mail" required>
+                  </div>
+                </div>
+
+                <small
+                  *ngIf="registerForm.controls['email']?.dirty && registerForm.controls['email']?.errors?.['required']"
+                  class="text-danger">*Email is required</small>
+
+
+                <!-- Rôle -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['role']?.dirty && registerForm.controls['role']?.errors?.['required']">
+
+                    <span class="fa fa-users p-2"></span>
+
+                    <select ngModel name="role" id="role" required>
+                      <option value="" disabled selected>Sélectionnez un rôle</option>
+                      <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <small
+                  *ngIf="registerForm.controls['role']?.dirty && registerForm.controls['role']?.errors?.['required']"
+                  class="text-danger">*Role is required</small>
+
+
+                <!-- Mot de passe -->
+                <div class="form-group pt-3">
+                  <div class="input-field"
+                    [class.error]="registerForm.controls['userPassword']?.dirty && registerForm.controls['userPassword']?.errors?.['required']">
+                    <span class="fa fa-lock p-2"></span>
+                    <input ngModel id="userPassword" name="userPassword" [type]="type" placeholder="Mot de passe"
+                      required>
+
+                  </div>
+                </div>
+                <small
+                  *ngIf="registerForm.controls['userPassword']?.dirty && registerForm.controls['userPassword']?.errors?.['required']"
+                  class="text-danger">*Password is required</small>
+
+                <button type="submit" class="btn btn-block mt-4 w-100 btn-lg">S'inscrire</button>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

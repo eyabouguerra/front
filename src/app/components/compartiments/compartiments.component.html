@@ -1,0 +1,68 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+<div class="heading_container heading_center container">
+  <h2 class="lo">L'ajout des Compartiments</h2>
+
+
+  <p>la capacité de la citerne:
+    <strong>{{ citerneDetails?.capacite }} L</strong>
+  </p>
+  <p>Nombre de compartiments de la citerne :
+    <strong>{{ citerneDetails?.nombreCompartiments }}</strong>
+  </p>
+
+
+  <!-- Formulaire pour ajouter un nouveau compartiment -->
+  <div class="form" *ngIf="peutAjouterCompartiment()">
+    <div class="position-relative">
+      <input type="text" class="form-control pe-5" placeholder="Référence" [(ngModel)]="nouveauCompartiment.reference"
+        readonly>
+      <button type="button" class="btn btn-sm btn-outline-secondary position-absolute ss top-10 end-3 h-0"
+        (click)="genererCodeCompartiment()">
+        Générer
+      </button>
+    </div>
+    <input type="number" placeholder="Capacité Max" [(ngModel)]="nouveauCompartiment.capaciteMax">
+    <select class="form-control mb-2" [(ngModel)]="nouveauCompartiment.typeProduits" multiple required>
+      <option value="" disabled>Sélectionner un type de produit</option>
+      <option *ngFor="let type of typesProduits" [ngValue]="type">{{ type.name }}</option>
+    </select>
+
+    <button type="button" class="btn btn-outline-warning" (click)="ajouterCompartiment()">
+      <i class="fa fa-plus-circle">&nbsp;&nbsp;</i><b>Ajouter</b>
+    </button>
+  </div>
+  <div *ngIf="!peutAjouterCompartiment()" class="alert alert-warning mt-3">
+    <b>La capacité maximale de la citerne a été atteinte. Impossible d’ajouter un autre compartiment.</b>
+  </div>
+
+
+
+  <!-- Table pour afficher les compartiments -->
+  <table>
+    <thead>
+      <tr>
+        <th>Référence</th>
+        <th>Capacité Max</th>
+        <th>Type Produit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let compartiment of compartiments">
+        <td>{{ compartiment.reference }}</td>
+        <td>{{ compartiment.capaciteMax }}</td>
+        <td>
+          <span *ngFor="let type of compartiment.typeProduits; let last = last">
+            {{ type.name }}<span *ngIf="!last">, </span>
+          </span>
+        </td>
+
+
+      </tr>
+    </tbody>
+  </table>
+ 
+
+</div>

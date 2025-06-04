@@ -1,0 +1,155 @@
+.table-responsive {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: #f8f9fa;
+}
+
+.d-flex.px-2.py-1>div:first-child {
+  margin-right: 10px;
+}
+
+
+.single_page_btn.add {
+  pointer-events: auto !important;
+  z-index: 10;
+  margin-left: 70em;
+  margin-top: 6em;
+}
+
+
+.pagination-container {
+  margin-top: 20px;
+
+}
+
+.pagination-container ::ng-deep .ngx-pagination .current {
+  background-color: #ffc107;
+  color: white;
+  border-color: #ffc107;
+}
+
+.lo {
+
+  font-weight: bold;
+  margin-right: -10em;
+
+}
+
+.container-fluid {
+  margin-left: 20em;
+  width: 80%;
+
+}
+
+th,
+td {
+  padding: 5px;
+  /* Réduit l'espacement */
+  text-align: center;
+  font-size: 10px;
+  /* Réduit la taille du texte */
+  white-space: nowrap;
+  /* Empêche le texte de passer à la ligne */
+
+}
+
+.badge-sm {
+  color: black;
+
+}
+
+.search-input-wrapper {
+  left: -33em;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.search-input-wrapper i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+input.custom-search {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  font-size: 16px;
+  border: 2px solid #ffc107;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+input.custom-search:focus {
+  outline: none;
+  border-color: #e0a800;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+}
+
+
+.heading_container {
+  display: flex;
+
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lo {
+  font-size: 24px; /* Increase title size */
+  font-weight: bold;
+margin: 2em;
+}
+
+.btn-container {
+  display: flex;
+
+  margin-left: auto; /* Push buttons to the right */
+}
+
+.btn {
+  padding: 8px 16px; /* Adjust button padding for better appearance */
+}
+
+
+/* Reduce space below the buttons */
+.btn-container {
+  margin-bottom: 1rem !important; /* Reduced from 4rem (mb-4) */
+}
+
+/* Reduce space below the search bar */
+.search-input-wrapper {
+  margin-bottom: 5rem !important; /* Reduced space */
+}
+
+/* Reduce padding around the container-fluid */
+.container-fluid {
+  padding-top: 0.5rem !important; /* Reduced from 2rem (py-2) */
+  padding-bottom: 0.5rem !important;
+}
+
+/* Reduce extra <br> spacing by removing them and controlling with CSS */
+.container-fluid > br {
+  display: none; /* Remove the multiple <br> tags */
+}
+
+/* Reduce padding in the card */
+.card.my-4 {
+  margin-top: 1rem !important; /* Reduced from 4rem */
+  margin-bottom: 1rem !important;
+}
+
+/* Reduce padding inside the card body */
+.card-body {
+  padding: 0.5rem !important; /* Reduced padding */
+}

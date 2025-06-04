@@ -1,0 +1,125 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+<main class="main-content top" [class.archives-only-mode]="showArchives">
+<section class="commande_menu">
+  <div class="container">
+    <div class="heading_container heading_center">
+      <h2 class="lo">{{ showArchives ? 'Commandes Archivées' : 'Gestion des commandes' }}</h2>
+      <div class="btn-container d-flex gap-3 mt-4 mb-4">
+        <button
+          *ngIf="!showArchives"
+          type="button"
+          class="btn btn-outline-warning"
+          (click)="openAddCommandeDialog()">
+          <i class="fa fa-plus-circle"></i> <b>Ajouter une commande</b>
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="toggleArchives()">
+          <i class="fa-solid fa-box-archive"></i> <b>{{ showArchives ? 'Retour aux commandes' : 'Voir les archives' }}</b>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="container-fluid py-2">
+    <div class="search-input-wrapper">
+      <i class="fas fa-search"></i>
+      <input [(ngModel)]="searchText" placeholder="Rechercher..." type="text" class="form-control custom-search" />
+    </div>
+    <br><br><br><br><br><br>
+    <div class="row">
+      <div class="col-12">
+        <div class="card my-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div class="bg-gradient-dark shadow-dark border-radius-lg pt-4 pb-3">
+              <h4 class="text-white text-capitalize ps-3">{{ showArchives ? 'Liste des commandes archivées' : 'Liste des commandes' }}</h4>
+            </div>
+          </div>
+          <div class="card-body px-0 pb-2">
+            <div class="table-responsive p-0">
+              <table class="table align-items-center mb-0">
+                <thead>
+                  <tr>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Code Commande</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Statut Commande</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Type produit</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produit</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantité</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date de Commande</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Client</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Prix</th>
+                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let produit of produitsFiltres | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ produit.codeCommande }}</p>
+                    </td>
+<td>
+  <span class="badge badge-sm" 
+        [ngClass]="{
+          'bg-gradient-warning': produit.statutCommande === 'PLANNIFIER',
+          'bg-gradient-info': produit.statutCommande === 'LIVRE',
+          'bg-gradient-success': produit.statutCommande === 'EN_ATTENTE'
+        }">
+    {{ getStatutCommandeLabel(produit.statutCommande) }}
+  </span>
+</td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">{{ produit.typeProduit }}</p>
+                    </td>
+                    <td>
+                      <p class="text-xs font-weight-bold mb-0">
+                        <span>{{ produit.produitNom || 'Nom introuvable' }}</span>
+                      </p>
+                    </td>
+                    <td class="align-middle text-sm">
+                      <span class="badge badge-sm">{{ produit.commandeQuantite }} L</span>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="text-secondary text-xs font-weight-bold">{{ produit.dateCommande | date }}</span>
+                    </td>
+                    <td> 
+                      <p class="text-xs font-weight-bold mb-0">{{ produit.clientNom }}</p>
+                    </td>
+                    <td class="align-middle text-center">
+                      <span class="badge badge-sm bg-gradient-success">{{ produit.prix }} DT</span>
+                    </td>
+                 <td class="align-middle text-center">
+    <ng-container *ngIf="produit.livraisonStatut !== 'EN_ATTENTE' && !showArchives">
+        <button type="button" class="btn btn-outline-dark me-2" [routerLink]="['/editcommande', produit.idCommande]">
+            <b>Éditer</b>
+        </button>
+        <button class="btn btn-outline-danger" (click)="deleteCommandeById(produit.idCommande)">
+            <b>Effacer</b>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="showArchives">
+        <span class="text-muted">Archivée</span>
+    </ng-container>
+</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="pagination-container text-center mt-3">
+                <pagination-controls
+                  (pageChange)="page = $event"
+                  previousLabel="Précédent"
+                  nextLabel="Suivant"
+                  [maxSize]="5"
+                  [directionLinks]="true"
+                  [autoHide]="true">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

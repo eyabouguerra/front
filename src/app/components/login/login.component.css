@@ -1,0 +1,183 @@
+/* Container global avec image de fond */
+.lola {
+    position: relative;
+    background-image: url('src/assets/img/a2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: rgb(41, 37, 36);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* Overlay sombre */
+.lola::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+.panel.bg-white {
+    background: linear-gradient(to right, #F9F1EA, #F9F1EA);
+    box-shadow: 0 6px 16px rgba(249, 241, 234, 0.8);
+    padding: 30px 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    color: rgb(41, 37, 36);
+
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Écrans ≥ 992px (desktop) → appliquer tes mesures fixes */
+@media (min-width: 992px) {
+    .panel.bg-white {
+        width: 50em;
+        max-width: 50em;
+        margin-left: -12em;
+    }
+}
+
+
+/* Titre centré */
+.panel-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.panel-heading h1 {
+    font-weight: 700;
+    color: #fbad25;
+    margin: 0;
+}
+
+/* Style général pour tous les écrans (mobile-first) */
+/* Style général pour tous les écrans (mobile-first) */
+.input-field {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    background-color: #F9F1EA;
+    transition: border-color 0.3s ease;
+
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Focus styling */
+.input-field:focus-within {
+    border-color: #fbad25;
+}
+
+/* Icon inside input */
+.input-field .fa {
+    color: rgb(41, 37, 36);
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+/* Input text and password styling */
+input[type="text"],
+input[type="password"] {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 1.05rem;
+    color: rgb(41, 37, 36);
+    width: 100%;
+    padding: 6px 0;
+}
+
+/* Écrans ≥768px (tablette et plus) */
+@media (min-width: 768px) {
+    .input-field {
+        max-width: 40em; /* agrandi */
+    }
+}
+
+/* Écrans ≥1200px (desktop large) */
+@media (min-width: 1200px) {
+    .input-field {
+        max-width: 50em; /* encore plus grand si nécessaire */
+    }
+}
+
+
+/* Validation message */
+.text-danger {
+    font-size: 0.85rem;
+    color: red;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Bouton principal */
+.btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 0;
+    border-radius: 15px;
+    background-color: rgb(41, 37, 36);
+    color: #fbad25;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.btn:hover:not(:disabled) {
+    background-color: #2d2a28;
+}
+
+/* Lien inscription */
+.text-center.text-muted {
+    margin-top: 25px;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.text-center.text-muted a.login {
+    color: #fbad25;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.text-center.text-muted a.login:hover {
+    color: #d48c1a;
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .lola {
+        padding: 20px 15px;
+    }
+
+    .panel.bg-white {
+        max-width: 100%;
+        padding: 25px 20px;
+    }
+}

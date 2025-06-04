@@ -1,0 +1,47 @@
+<app-header2></app-header2>
+<section class="service_section layout_padding">
+  <div class="container">
+    <a routerLink="/suivre_livraison" class="btn btn-outline-warning mb-4 d-block mx-auto text-center">
+      <b> Suivre La livraison de mes commandess</b>
+    </a>
+    <a routerLink="/mes-commandes" class="btn btn-outline-warning mb-4 d-block mx-auto text-center">
+      <b>📦 Voir mes commandes</b>
+    </a>
+
+    <div class="heading_container text-center">
+      <h1 class="lo">Types Produits</h1>
+    </div>
+
+    <div class="row justify-content-center mb-5">
+      <div class="col-12 col-md-8 position-relative">
+        <i class="fas fa-search search-icon"></i>
+        <input
+          type="text"
+          class="form-control custom-search"
+          placeholder="Rechercher un type de produit..."
+          [(ngModel)]="searchTerm"
+          (input)="filterProduits()" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-6 col-lg-4 mb-4" *ngFor="let elt of filteredTypeProduits">
+        <div class="b1 lo detail-box">
+
+          <h2 class="de">
+            <b>* Type de produit :</b> <span>{{ elt.name }}</span>
+          </h2>
+
+          <h2 class="de">
+            <b>* Description de Type :</b> <span>{{ elt.description }}</span>
+          </h2>
+
+          <button class="single_page_btn btn btn-outline-warning" (click)="viewProduitsByType(elt.id)">
+            <i class="fas fa-sign-in-alt"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

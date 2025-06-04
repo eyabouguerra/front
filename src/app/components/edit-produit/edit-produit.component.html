@@ -1,0 +1,55 @@
+<app-header2></app-header2>
+<body>
+  <div class="container mt-4">
+      <div class="row">
+          <div class="col"><br><br><br>
+              <p class="h3 fw-bold gradient-text">&nbsp;<i class="fa fa-pen">&nbsp;</i> Edit produit</p>
+              <br>
+          </div>
+       </div>
+  </div>
+
+
+<div class="container">.
+  <div class="row">
+      <div class="col-sm-4">
+          <form #editPlatForm="ngForm" (ngSubmit)="editProduit()">
+              <div class="mb-2">
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 <div class="mb-2">
+                    <input [(ngModel)]="produit.codeProduit" [ngModelOptions]="{standalone: true}" name="codeProduit" type="text" class="form-control" placeholder="codeProduit" readonly>
+                </div><br>
+                <div class="mb-2">
+                    <input [(ngModel)]="produit.nomProduit" [ngModelOptions]="{standalone: true}" name="nomProduit" type="text" class="form-control" placeholder="Nom du produit">
+                </div><br>
+              <input [(ngModel)]="produit.libelle" [ngModelOptions]="{standalone: true}" name="name" type="text" class="form-control" placeholder="libelle" >
+              </div>
+              <br>
+              <div class="mb-2">
+                  <input [(ngModel)]="produit.description" [ngModelOptions]="{standalone: true}" name="description" type="text" class="form-control" placeholder="description">
+              </div><br>
+              <!--<div class="mb-2">
+                  <input [(ngModel)]="produit.date" [ngModelOptions]="{standalone: true}" name="date" type="date" class="form-control" >
+              </div><br>-->
+              <div class="mb-2 form-group">
+                  <input [(ngModel)]="produit.prix" [ngModelOptions]="{standalone: true}" name="price"type="number" class="form-control" placeholder="Price">
+                </div><br>
+
+
+        
+                  
+
+              <div class="mb-2">
+                  <input type="submit" class="custom-btn" value="Edit Produit" >
+                  <a [routerLink]="['/produits', id]" class="custom-btn-outline ms-2">Close</a>
+              </div>
+          </form>
+      </div>
+      <div class="col-sm-6 ll">
+          <img src="assets/img/a2.jpg" alt="" class="produit-img">
+      </div>
+  </div>
+  
+</div>
+
+</body>

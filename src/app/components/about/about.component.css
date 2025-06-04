@@ -1,0 +1,17 @@
+.about_section {
+    padding-top: 3em;
+    margin-top: 0;
+}
+
+.font{
+    font-size: 2rem;
+}
+.li {
+    position: relative;
+    top: -3em;
+}
+
+.pargraphe{
+    font-size: 1.2rem;
+    text-align: justify;
+}

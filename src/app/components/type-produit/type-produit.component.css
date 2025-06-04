@@ -1,0 +1,172 @@
+section{
+ 
+    margin-left: 20em;
+}
+.lo{
+    font-weight: bold;
+}
+full-calendar {
+   
+    max-width: 50%;
+    margin: 0 auto;
+    margin-top: -35em;
+    margin-left: 50em;
+  }
+ 
+  .add{
+    right: -32em;  
+   
+}
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  
+ 
+}
+
+
+.search-input-wrapper i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+input.custom-search {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  font-size: 16px;
+  border: 2px solid #ffc107;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+input.custom-search:focus {
+  outline: none;
+  border-color: #e0a800;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+}
+
+
+.detail-box {
+    position: relative;
+    background-image: url('/assets/img/a1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    color: #e12424;
+    
+    
+}
+
+/* Calque semi-transparent sur l'image */
+.detail-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(88, 88, 88, 0.4); /* Gris avec une transparence de 40% */
+    z-index: 1; /* Met le calque au-dessus de l'image */
+}
+
+.detail-box > * {
+    position: relative;
+    z-index: 2; /* Le texte passe au-dessus du calque transparent */
+}
+
+.de{
+    font-family: 'Times New Roman', Times, serif;
+}
+
+b{
+    font-size: 1.2em;
+}
+span{
+    color: red;
+    font-size: 1.2em;
+
+}
+.custom-button-group {
+    display: flex;
+    justify-content: center; /* Centre les éléments horizontalement */
+    align-items: center; /* Centre les éléments verticalement */
+    gap: 1rem; /* Espace entre les boutons */
+    background-color: war;
+}
+
+   
+
+/* styles.css (global) */
+
+/* Classes pour les dialogues */
+.custom-dialog .mat-dialog-container {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .animated-dialog .mat-dialog-container {
+    animation: dialogFadeIn 0.3s ease-out;
+  }
+  
+  @keyframes dialogFadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(-20px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+  .service_section{
+    height: 190em;
+  }
+  
+  /* Amélioration pour les boutons de la page principale */
+  .single_page_btn.btn-outline-warning {
+    transition: all 0.3s ease;
+    margin: 0 3px;
+  }
+  
+  .single_page_btn.btn-outline-warning:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(247, 183, 51, 0.3);
+  }
+  
+  .b1.lo {
+    transition: all 0.3s ease;
+  }
+  
+  .b1.lo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .detail-box h2 span {
+    color: white;
+    font-weight: 500;
+  }
+  
+  /* Animation pour les nouveaux éléments ajoutés */
+  @keyframes newItemHighlight {
+    0% { background-color: rgba(247, 183, 51, 0.2); }
+    100% { background-color: transparent; }
+  }
+  
+  .new-item {
+    animation: newItemHighlight 2s ease-out;
+  }
+

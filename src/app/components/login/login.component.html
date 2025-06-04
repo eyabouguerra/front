@@ -1,0 +1,81 @@
+<app-header2></app-header2>
+<html>
+  <body class="lola">
+    <div class="outer">
+      <div class="container">
+        <div class="row">
+          <div class="offset-md-2 col-md-8 offset-md-3">
+            <div class="panel border bg-white form-background">
+              <div class="panel-heading">
+                <h1 class="pt-3 font-weight-bold tt"><b>SE CONNECTER</b></h1>
+              </div>
+
+              <div class="panel-body p-3">
+                <form #loginForm="ngForm" (ngSubmit)="login(loginForm)" novalidate>
+
+                  <!-- Nom d'utilisateur -->
+                  <div class="form-group pt-3">
+                    <div class="input-field">
+                      <span class="fa fa-user p-2"></span>
+                      <input
+                        type="text"
+                        ngModel
+                        name="userName"
+                        placeholder="Nom d'utilisateur"
+                        id="userName"
+                        required
+                        #userName="ngModel"
+                      />
+                    </div>
+                    <small
+                      *ngIf="userName.invalid && userName.touched"
+                      class="text-danger"
+                    >*UserName is required</small>
+                  </div>
+
+                
+                  <!-- Mot de passe -->
+                  <div class="form-group pt-3">
+                    <div class="input-field">
+                      <span class="fa fa-lock p-2"></span>
+                      <input
+                        type="password"
+                        ngModel
+                        name="userPassword"
+                        id="userPassword"
+                        placeholder="Mot de passe"
+                        required
+                        #userPassword="ngModel"
+                      />
+                     
+                    </div>
+                    <small
+                      *ngIf="userPassword.invalid && userPassword.touched"
+                      class="text-danger"
+                    >*Password is required</small>
+                  </div>
+
+                  <!-- Bouton -->
+                  <button
+                    type="submit"
+                    class="btn btn-block mt-4 w-100 btn-lg"
+                    [disabled]="loginForm.invalid"
+                  >
+                    Se connecter
+                  </button>
+
+                  <!-- Lien inscription -->
+                  <div class="text-center pt-4 text-muted">
+                    Vous avez déjà un compte ? &nbsp;
+                    <a id="forget" class="login" routerLink="/login">S'inscrire</a>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

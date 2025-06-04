@@ -1,0 +1,85 @@
+<app-header2></app-header2>
+    <app-dash-receptionnaire></app-dash-receptionnaire>
+
+    
+<div class="container" [class.archives-only-mode]="showArchives">
+  <div class="heading_container heading_center">
+    <h2 class="lo">
+      Gestion des livraisons
+    </h2>
+  </div>
+  <br><br><br>
+  <!-- Conteneur pour les boutons -->
+  
+    <button class="btn btn-outline-warning" [routerLink]="['/addlivraison']">
+        <i class="fa fa-plus-circle"></i>  <b>Ajouter une livraison</b>
+    </button>&nbsp;
+    <button class="btn btn-outline-info" (click)="toggleArchives()">
+      <i class="fa-solid fa-box-archive"></i>  <b>{{ showArchives ? 'Masquer Archives' : 'Voir Archives' }}</b>
+    </button>
+
+
+  <!-- Calendrier (affiché quand showArchives est false) -->
+  <div *ngIf="!showArchives" class="calendar-container">
+    <full-calendar
+      [options]="calendarOptions"
+      [plugins]="calendarOptions.plugins"
+      [headerToolbar]="calendarOptions.headerToolbar"
+      [initialView]="calendarOptions.initialView"
+      [events]="calendarOptions.events"
+      (eventClick)="handleEventClick($event)">
+    </full-calendar>
+  </div>
+
+
+
+  <!-- Section Archives (affichée quand showArchives est true) -->
+  <div *ngIf="showArchives" class="archives-section">
+    <h2 class="archives-title">Livraisons Archivées</h2>
+    
+    <div *ngIf="archivedLivraisons.length === 0" class="alert alert-info text-center">
+      <i class="fas fa-info-circle me-2"></i>
+      Aucune livraison archivée trouvée.
+    </div>
+    
+    <div *ngIf="archivedLivraisons.length > 0" class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>Code Livraison</th>
+                <th>Date Livraison</th>
+                <th>Statut</th>
+                <th>Camion</th>
+
+              </tr>
+            </thead>
+<tbody>
+  <tr *ngFor="let livraison of archivedLivraisons">
+    <td>
+      <strong>{{ livraison.codeLivraison || 'N/A' }}</strong>
+    </td>
+    <td>
+      {{ formatDate(livraison.dateLivraison) }}
+    </td>
+    <td>
+      <span [class]="getStatutClass(livraison.statut)">
+        {{ livraison.statut }}
+      </span>
+    </td>
+    <td>
+      <div class="small">
+        <strong>{{ livraison.camion?.marque || 'N/A' }}</strong><br>
+        <span class="text-muted">{{ livraison.camion?.immatriculation || 'N/A' }}</span>
+      </div>
+    </td>
+
+  </tr>
+</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+</div>

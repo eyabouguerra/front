@@ -1,0 +1,81 @@
+h2 {
+    text-align: center;
+    color: #3f51b5;
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #444;
+    margin: 5px 0;
+  }
+  
+  strong {
+    color: #000;
+    margin-left: 20px;
+  }
+  .table-wrapper {
+    max-width: 600px;
+    overflow-x: auto;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 400px;
+  }
+  
+  .styled-table th, .styled-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .styled-table th {
+    background-color: #f5f5f5;
+    color: #333;
+  }
+  
+  .styled-table tr:hover {
+    background-color: #f0f8ff;
+  }
+  
+  .section-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 8px 12px;
+    font-weight: bold;
+  }
+  
+  button[color="primary"] {
+    background-color: #3f51b5;
+    color: white;
+  }
+  
+  button[color="warn"] {
+    background-color: #d32f2f;
+    color: white;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+

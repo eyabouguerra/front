@@ -1,0 +1,72 @@
+<app-header2></app-header2>
+<div class="heading_container heading_center container">
+  <h2 class="li">
+    Edit Livraison
+  </h2>
+  <form [formGroup]="livraisonForm" (ngSubmit)="editLivraison()" class="formliv">
+    <br>
+    
+    <div class="lo">
+      <label for="codeLivraison">Code Livraison :</label> 
+      <input id="codeLivraison" formControlName="codeLivraison" type="text" readonly>
+    </div>
+    
+    <div class="lo">
+      <label for="immatriculation">Immatriculation de camion :</label> 
+      <input id="immatriculation" formControlName="immatriculation" type="text" readonly>
+    </div>
+    
+    <div *ngIf="livraisonCommandes.length > 0; else noCommande">
+      <p class="lo"><strong>Commandes :</strong></p>
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>Code Commande</th>
+            <th>Nom Produit</th>
+            <th>Quantité (L)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let cmd of livraisonCommandes">
+            <ng-container *ngFor="let cp of cmd.commandeProduits; let i = index">
+              <tr>
+                <td *ngIf="i === 0" [attr.rowspan]="cmd.commandeProduits.length">
+                  {{ cmd.codeCommande || 'Sans code' }}
+                </td>
+                <td>{{ cp.produit?.nomProduit || 'Produit non défini' }}</td>
+                <td>{{ cp.quantite || 0 }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+    
+    <ng-template #noCommande>
+      <p>Aucune commande associée.</p>
+    </ng-template>
+    
+    <div class="lo">
+      <label for="dateLivraison">Date Livraison: (Modifiable)</label> 
+      <input type="date" id="dateLivraison" class="form-control" formControlName="dateLivraison" [min]="minDate" required>
+    </div>
+    
+    <div class="la">
+      <label for="statut">Statut: (Modifiable)</label> 
+      <select id="statut" formControlName="statut" required [disabled]="isStatusLocked()">
+        <option 
+          *ngFor="let option of getAvailableStatusOptions()" 
+          [value]="option.value"
+          [selected]="livraisonForm.get('statut')?.value === option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+    
+    <br>
+    <div class="button-container">
+      <button mat-button class="btn btn-outline-warning" type="submit"><b>Enregistrer</b></button>
+      <button mat-button class="btn btn-outline-warning" type="button" (click)="cancel()"><b>Annuler</b></button>
+    </div>
+  </form>
+</div>

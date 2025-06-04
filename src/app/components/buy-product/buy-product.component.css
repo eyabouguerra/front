@@ -1,0 +1,145 @@
+/* Variables de couleurs */
+:root {
+    --primary-color: #4a6fdc;
+    --primary-hover: #3a5cbe;
+    --success-color: #28a745;
+    --background-color: #f8f9fa;
+    --border-color: #dbe1e8;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --text-color: #333;
+    --label-color: #566573;
+  }
+  body{
+    margin-top: -35em;
+  }
+  
+  /* Style général du formulaire */
+  .order-form {
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 2.5rem; 
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dbe1e8;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  }
+  .gradient-text {
+    color: rgb(41, 37, 36); /* Couleur principale dorée */
+    text-shadow: 2px 2px 5px rgba(150, 100, 20, 0.5), /* Ombre principale foncée */
+                 -1px -1px 3px rgba(255, 215, 0, 0.6), /* Reflet doré */
+                 1px 1px 2px rgba(0, 0, 0, 0.3); /* Ombre subtile pour profondeur */
+    font-weight: bold;
+}
+  
+  /* Titre du formulaire (si besoin) */
+  .order-form h2 {
+    margin-bottom: 1.5rem;
+    color: #fccd4d;
+    font-weight: 600;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+  
+  /* Style des groupes de champs */
+  .form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+  }
+  
+  /* Style des labels */
+  .form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 500;
+    
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+  }
+  
+  /* Style des champs input */
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 2px solid #dbe1e8;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #fccd4d;
+    box-shadow: 0 0 0 3px rgba(243, 205, 34, 0.514);
+    background-color: white;
+  }
+  
+  .form-control::placeholder {
+    color: #adb5bd;
+    opacity: 0.8;
+  }
+  
+  /* Style du bouton */
+  button[type="submit"] {
+    background-color: #fccd4d;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(74, 111, 220, 0.2);
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #f7b733;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(74, 111, 220, 0.3);
+  }
+  
+  button[type="submit"]:active {
+    transform: translateY(0);
+  }
+  
+  /* Effets visuels avancés */
+  .form-control:focus + label {
+    color: #fccd4d;
+  }
+  
+  /* Animation de succès pour le bouton */
+  button[type="submit"].success {
+    background-color: #28a745;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .order-form {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+    
+    button[type="submit"] {
+      width: 100%;
+    }
+  }
+  
+  /* Animation d'apparition pour le formulaire */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .order-form {
+    animation: fadeIn 0.5s ease-out forwards;
+  }

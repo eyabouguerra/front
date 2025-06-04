@@ -1,0 +1,56 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+<div class="foul">
+  <section class="service_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2 class="lo title-text">Produits de type : {{ typeName }}</h2><br>
+        <button class="single_page_btn d-none d-sm-block add btn btn-outline-warning" (click)="addProduit()">
+          <i class="fa fa-plus-circle">&nbsp;&nbsp;</i><b>Ajouter un produit</b>
+        </button>
+      </div>
+      <br><br>
+    </div>
+    <div class="search-input-wrapper">
+      <i class="fas fa-search"></i>
+      <input
+        type="text"
+        class="form-control custom-search"
+        placeholder="Rechercher un produit..."
+        [(ngModel)]="searchTerm"
+        (input)="filterProduits()"
+      />
+    </div>
+    <div class="row">
+
+      <div class="col-sm-6 col-lg-6 detail-box mb-4" *ngFor="let produit of produitsFiltres">
+        <div class="single_food_item media d-flex justify-content-between">
+          
+          <!-- Partie Texte -->
+          <div class="media-body detail-box">
+            <h3><b>Code du produit : </b> <span>{{ produit.codeProduit }}</span></h3>
+            <h3><b>Nom du produit : </b><span>{{ produit.nomProduit }}</span></h3>
+            <h3><b>Libellé : </b><span>{{ produit.libelle }}</span></h3>
+            <h3><b>Prix : </b><span>{{ produit.prix }} TND / L</span></h3>
+           <!--<h3><b>Date : </b><span>{{ produit.date | date: 'dd/MM/yyyy' }}</span></h3>--> 
+            <h3><b>Description : </b><span>{{ produit.description }}</span></h3>
+          </div>
+  
+          <!-- Partie Boutons à droite -->
+          <div class="d-flex flex-column ml-auto align-items-start">
+            <button type="button" class="single_page_btn btn btn-outline-warning mb-2" (click)="editProduit(produit.id)">
+              <i class="fas fa-pencil-alt"></i><br> Edit
+            </button><br>
+            <button class="single_page_btn btn btn-outline-warning" (click)="deleteProduit(produit.id)">
+              <i class="fas fa-trash"></i><br> Delete
+            </button>
+          </div>
+  
+        </div>
+
+</div> 
+    </div>
+  </section>
+<!-- Bouton Retour -->
+<button class="btn sin" routerLink="/type_produit">Retour</button>
+</div>

@@ -1,0 +1,30 @@
+<app-header2></app-header2>
+<app-dash-admin></app-dash-admin>
+
+<div class="mt-5 lolo container-fluid py-1" >
+    <h2 class="text-white text-capitalize ps-4 copperplate-title text-center fs-4"  style="margin-top: 1.5em;">
+ <b>Statistiques des utilisateurs</b>
+    </h2><br><br><br><br>
+ <!-- <div class="row text-center mb-4">
+    <div class="col+2">
+      <h4><b>Admins</b></h4>
+      <h2>{{ adminCount }}</h2>
+    </div>
+    <div class="col">
+      <h4><b>Clients</b></h4>
+      <h2>{{ clientCount }}</h2>
+    </div>
+    <div class="col">
+      <h4><b>Dispatcheurs</b></h4>
+      <h2>{{ dispatcheurCount }}</h2>
+    </div>
+  </div>
+-->
+  <div style="max-width: 500px; margin: auto;">
+    <canvas baseChart
+      [data]="pieChartData"
+      [options]="pieChartOptions"
+      [type]="pieChartType">
+    </canvas>
+  </div>
+</div>

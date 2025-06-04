@@ -1,0 +1,173 @@
+<app-header2></app-header2>
+<title>Ajouter une Livraison</title>
+
+<body>
+  <div class="livraison-container card-effect">
+    <div class="livraison-header">
+      <h2><i class="fas fa-truck"></i> Ajouter une Livraison</h2>
+      <p>Veuillez remplir tous les champs requis pour créer une nouvelle livraison</p>
+    </div>
+
+    <div class="livraison-form">
+      <form [formGroup]="addLivraisonForm" (ngSubmit)="onSubmit()">
+        <div class="form-group position-relative">
+          <label for="codeLivraison"><i class="fas fa-hashtag"></i> Code Livraison</label>
+          <div class="input-container">
+            <input type="text" id="codeLivraison" class="form-control" formControlName="codeLivraison" readonly
+              placeholder="Entrez le code unique">
+            <i class="fas fa-fingerprint input-icon"></i>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary"
+            style="position: absolute; right: 10px; top: 30px;" (click)="genererCodeLivraison()">
+            Générer
+          </button>
+          <div *ngIf="addLivraisonForm.get('codeLivraison')?.touched">
+            <div *ngIf="addLivraisonForm.get('codeLivraison')?.hasError('required')" class="invalid-feedback">
+              Le code livraison est requis.
+            </div>
+            <div *ngIf="addLivraisonForm.get('codeLivraison')?.hasError('codeLivraisonExists')"
+              class="invalid-feedback">
+              Ce code existe déjà.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="date"><i class="fas fa-calendar-alt"></i> Date Livraison</label>
+          <div class="input-container">
+            <input type="date" id="date" class="form-control" formControlName="date" [min]="minDate" required>
+            <i class="fas fa-calendar-check input-icon"></i>
+          </div>
+          <div *ngIf="addLivraisonForm.get('date')?.invalid && addLivraisonForm.get('date')?.touched"
+            class="error-message">
+            <div *ngIf="addLivraisonForm.get('date')?.hasError('required')">
+              <i class="fas fa-exclamation-circle"></i> La date de livraison est requise.
+            </div>
+            <div *ngIf="addLivraisonForm.get('date')?.hasError('dateNotFuture')">
+              <i class="fas fa-exclamation-circle"></i> La date de livraison doit être postérieure à la date actuelle.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="immatriculation"><i class="fas fa-id-card"></i> Immatriculation</label>
+          <div class="input-container">
+            <select formControlName="camionId" (change)="onCamionChange($event)" class="form-control">
+              <option value="" disabled selected>Sélectionnez un camion</option>
+              <option *ngFor="let camion of camions" [value]="camion.id">
+                {{ camion.immatriculation }}
+              </option>
+            </select>
+            <i class="fas fa-barcode input-icon"></i>
+          </div>
+          <div *ngIf="addLivraisonForm.get('camionId')?.invalid && addLivraisonForm.get('camionId')?.touched"
+            class="error-message">
+            <i class="fas fa-exclamation-circle"></i> L'immatriculation est requise.
+          </div>
+        </div>
+
+<div class="form-group">
+  <label for="citerne-id"><i class="fas fa-gas-pump"></i> Citerne</label>
+  <div class="input-container">
+    <select id="citerne-id" class="form-control" formControlName="citerneId" required
+      [disabled]="citernes.length === 0" (change)="onCiterneSelectionChange($event)">
+      <option value="" disabled selected>Sélectionnez une citerne</option>
+      <option *ngFor="let citerne of citernes" [value]="citerne.id">
+        {{ citerne.reference }} ({{ citerne.capacite }} L) - {{ citerne.compartimentTypes?.join(', ') || 'Aucun type' }}
+      </option>
+    </select>
+    <i class="fas fa-oil-can input-icon"></i>
+  </div>
+  <div *ngIf="addLivraisonForm.get('citerneId')?.invalid && addLivraisonForm.get('citerneId')?.touched"
+    class="error-message">
+    <i class="fas fa-exclamation-circle"></i> La citerne est requise.
+  </div>
+</div>
+
+        <div class="form-group" *ngIf="compartiments.length > 0">
+          <label class="table-title">
+            <i class="fas fa-database me-1"></i> Compartiments de la citerne
+          </label>
+          <div class="table-responsive compact-table shadow-sm rounded mt-2">
+            <table class="table table-sm table-striped table-bordered mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th>Référence</th>
+                  <th>Capacité Maximale (L)</th>
+                  <th>Type de compartiment</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let compartiment of compartiments">
+                  <td>{{ compartiment.reference }}</td>
+                  <td>{{ compartiment.capaciteMax }} L</td>
+                  <td>
+                    <span *ngFor="let typeProduit of compartiment.typeProduits" class="statut-badge" [ngClass]="{
+                        'bg-success': typeProduit.name === 'Gaz',
+                        'bg-warning text-dark': typeProduit.name === 'Carburant',
+                        'bg-danger': typeProduit.name === 'Lubrifiant'
+                      }">
+                      {{ typeProduit.name }}
+                    </span>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div *ngFor="let compartiment of compartiments" class="mt-4">
+            <h5>
+              <i class="fas fa-box-open"></i> Commandes compatibles pour le compartiment {{ compartiment.reference }}
+       
+            </h5>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm">
+                <thead class="table-light">
+                  <tr>
+                    <th>Code</th>
+                    <th>Type</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Date</th>
+                    <th>Prix</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngIf="!compartimentCommandesMap[compartiment.reference] || compartimentCommandesMap[compartiment.reference].length === 0">
+                    <td colspan="7" class="text-center text-muted">
+                      Aucune commande compatible disponible pour ce compartiment.
+                    </td>
+                  </tr>
+                  <tr *ngFor="let cmd of compartimentCommandesMap[compartiment.reference]">
+                    <td>{{ cmd.codeCommande }}</td>
+                    <td>{{ cmd.typeProduit }}</td>
+                    <td>{{ cmd.produitNom }}</td>
+             <td>{{ cmd.commandeQuantite !== 0 ? cmd.commandeQuantite : 'N/A' }}</td>
+                    <td>{{ cmd.dateCommande | date }}</td>
+                    <td>{{ cmd.prix }}</td>
+                    <td>
+                      <button type="button" class="btn btn-sm btn-success" (click)="selectCommande(compartiment, cmd)">
+                        Sélectionner
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-secondary" [routerLink]="['/livraisons']">
+            <i class="fas fa-times"></i> Annuler
+          </button>
+          <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+            <i class="fas fa-plus"></i> Ajouter
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

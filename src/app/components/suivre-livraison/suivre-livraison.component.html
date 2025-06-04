@@ -1,0 +1,34 @@
+<app-header2></app-header2>
+
+<br><br><br>
+<h2><strong>Suivre ma livraison</strong></h2>
+<br><br><br>
+
+<table *ngIf="livraisonsFiltres && livraisonsFiltres.length > 0; else noLivraisons">
+    <thead>
+      <tr>
+        <th>Code Livraison</th>
+        <th>Date Livraison</th>
+        <th>Statut</th>
+        <th>Camion (Immatriculation)</th>
+        <th>Code Commande</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let livraison of livraisonsFiltres">
+        <td>{{ livraison.codeLivraison }}</td>
+        <td>{{ livraison.dateLivraison | date:'dd/MM/yyyy' }}</td>
+        <td>{{ livraison.statut }}</td>
+        <td>{{ livraison.camion?.immatriculation || 'N/A' }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let cmd of livraison.commandes">{{ cmd.codeCommande }}</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noLivraisons>
+    <p>Aucune livraison trouvée pour cet utilisateur.</p>
+  </ng-template>
+  

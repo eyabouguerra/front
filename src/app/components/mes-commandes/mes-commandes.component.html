@@ -1,0 +1,42 @@
+<app-header2></app-header2><section class="service_section pt-3 mt-0">
+    <div class="container"> <br><br><br><br>
+      <h1 class="text-center mb-4"><strong>Mes commandes</strong></h1>
+      <br><br>
+      <div class="row justify-content-center mb-5">
+        <div class="col-12 col-md-8 position-relative">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control custom-search"
+            placeholder="Rechercher un type de produit..."
+            [(ngModel)]="searchTerm"
+            (input)="filterMesCommandes()" />
+        </div>
+      </div>
+      <div *ngIf="commandes.length === 0" class="text-center">
+        <p>Aucune commande trouvée.</p>
+      </div>
+  
+      <div class="row">
+        <div *ngFor="let commande of filteredMesCommandes" class="col-12 col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+              <p><strong>ID commande :</strong> {{ commande.id }}</p>
+              <p><strong>Code :</strong> {{ commande.codeCommande }}</p>
+              <p><strong>Date :</strong> {{ currentDate | date:'medium' }}</p>
+
+              <p><strong>Client :</strong> {{ commande.client?.fullName || commande.clientNom || 'N/A' }}</p>
+              <p><strong>Produits :</strong></p>
+              <ul>
+                <li *ngFor="let cp of commande.commandeProduits">
+                  {{ cp.produit?.nomProduit || cp.produitNom }} - Quantité: {{ cp.quantite }}
+                </li>
+              </ul>
+              <p><strong>Prix total :</strong> {{ commande.totalPrice || commande.prix }} DT</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

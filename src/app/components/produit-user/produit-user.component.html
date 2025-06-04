@@ -1,0 +1,49 @@
+<app-header2></app-header2>
+<section class="product_section layout_padding">
+    <div class="container">
+       <div class="heading_container heading_center">
+          <h2>
+             Nos produits
+          </h2>
+       </div>
+    <br><br><br>
+    </div> <div class="search-input-wrapper">
+        <i class="fas fa-search"></i>
+        <input
+          type="text"
+          class="form-control custom-search"
+          placeholder="Rechercher un produit..."
+          [(ngModel)]="searchTerm"
+          (input)="filterProduits()"
+        /></div>
+      &nbsp;&nbsp;
+            <div class="row">
+                <div class="col-sm-6 col-lg-6 detail-box" *ngFor="let elt of produitsFiltres">
+                    <div class="single_food_item media ">
+                       
+                        <div class="media-body align-self-center detail-box">
+                            <h3><b>* Code du produit :</b>&nbsp;&nbsp; <span>{{elt.codeProduit}}</span></h3>
+                            <p><b>* Nom du produit :&nbsp;&nbsp; </b><span>{{elt.nomProduit}}</span></p>
+                            <h3><b>* Libellé : &nbsp;&nbsp;</b><span>{{elt.libelle}}</span> </h3>
+                            <h3><b>* Prix :&nbsp;&nbsp; </b> <span>{{elt.prix}} </span>TND </h3>
+                           
+                            <h3><b>* Description :&nbsp;&nbsp;</b><span>{{elt.description }}</span> </h3>
+                        </div>
+                        
+
+                    <div class="col-sm-3 d-flex flex-column justify-content-center align-items-center custom-button-group" style="margin-top: 10px;">
+                           <a class="single_page_btn d-none d-sm-block" (click)="addToCart(elt.id)">
+                           AJOUTER AU PANIER
+                            </a><br><br>
+        
+                        </div><br>
+                        
+                    </div>
+                    
+                   
+                    
+            </div>
+        </div>
+      
+         </section> 
+         

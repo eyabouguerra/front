@@ -1,0 +1,78 @@
+<app-header2></app-header2>
+<body>
+    <div class="container mt-5">
+        <div class="card p-3">
+            <div class="row">
+                <div class="col-6">
+    
+                    <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" class="order-form">
+                        <div class="form-group">
+                            <label for="fullName" class="gradient-text">Nom de produit</label>
+                            <input matInput id="fullName" placeholder="Nom complet" [(ngModel)]="orderDetails.fullName" name="fullName" class="form-control" />
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="fullAddress" class="gradient-text">Adresse</label>
+                            <input matInput id="fullAddress" placeholder="Adresse complète" [(ngModel)]="orderDetails.fullAddress" name="fullAddress" class="form-control" />
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="contactNumber" class="gradient-text">Contact</label>
+                            <input matInput id="contactNumber" placeholder="Contact number" [(ngModel)]="orderDetails.contactNumber" name="contactNumber" class="form-control" />
+                          </div>
+                          
+                          <div class="form-group">
+                            <label for="alternateContactNumber" class="gradient-text">Autre numéro de téléphone</label>
+                            <input matInput id="alternateContactNumber" placeholder="Autre numéro" [(ngModel)]="orderDetails.alternateContactNumber" name="alternateContactNumber" class="form-control" />
+                          </div>
+                          
+                      
+                        <div align="right">
+                          <button type="submit" class="gradient-text" mat-stroked-button color="warning">Passer la commande</button>
+                        </div>
+                      </form>
+                      
+                   
+    <!--<pre>{{ orderDetails | json }}</pre>
+    <pre>{{ productDetails | json }}</pre>-->
+    
+                </div>
+                <div class="col-6"><br><br><br>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="gradient-text">Name</th>
+                                <th class="gradient-text">Amount</th>
+                                <th class="gradient-text">Quantity</th>
+                                <th class="gradient-text">Total</th>
+    
+                            </tr>
+                        </thead>
+                        <tbody class="tbody">
+                            <tr *ngFor="let product of productDetails">
+                                <td>{{product.nomProduit}}</td>
+                                <td>{{product.prix}}</td>
+                                <td>
+                                    <select #quantity class="form-select" [ngModel]="getQuantityForProduct(product.id)" (change)="onQuantityChanged(+quantity.value,product.id)">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    {{getCalculatedTotal(product.id, product.prix)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td></td>
+                                <td></td>
+                                <td>Total</td>
+                                <td>{{getCalculatedGrandTotal()}} DT</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div></div>   
+</body>

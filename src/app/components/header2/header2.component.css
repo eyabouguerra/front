@@ -1,0 +1,45 @@
+.hero_area, .hero_bg_box, .header_section {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .hero_bg_box img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+  .hero_area {
+    min-height: auto !important;
+  }
+
+  
+  .imgagil {
+    height: 90px;
+    width: auto; /* Pour garder les proportions */
+    margin-left: 10px;
+    max-width: 400px;
+  }
+  
+  .header_bottom {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 0; /* un peu d’air dans le menu */
+  }
+  
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-link {
+    font-weight: bold;
+  }
+  
+  /* Bordure rouge pour visualiser la taille du header */
+  .app-header2 {
+    border: 2px solid red;
+    display: block;
+    width: 100%;
+  }
+  

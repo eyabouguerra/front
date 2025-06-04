@@ -1,0 +1,43 @@
+.service_section {
+    margin-top: 0;  /* Supprime le margin-top négatif */
+    padding: 3rem 0; /* Un peu d'espace en haut et en bas */
+  }
+  
+  .box {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    height: 100%; /* Pour que toutes les boîtes aient la même hauteur dans une ligne */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .img-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .detail-box {
+    flex-grow: 1;
+    padding-top: 1rem;
+  }
+  
+  .heading_container {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  /* Responsive */
+  
+  /* Pour les écrans moyens et moins (tablettes, mobiles) */
+  @media (max-width: 991.98px) {
+    .col-lg-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+  

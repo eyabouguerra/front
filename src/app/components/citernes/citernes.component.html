@@ -1,0 +1,79 @@
+<app-header2></app-header2>
+<app-dash-receptionnaire></app-dash-receptionnaire>
+
+<div class="heading_container heading_center container">
+  <h2 class="lo">Gestion des Citernes</h2>
+  <br>
+
+  <!-- Formulaire pour ajouter une nouvelle citerne -->
+  <div class="form">
+    <div class="position-relative">
+      <input type="text" placeholder="Référence de la citerne" [(ngModel)]="nouvelleCiterne.reference" readonly>
+      <button type="button" class="btn btn-sm btn-outline-secondary position-absolute end-4 h-1" style="top: 20px;"
+        (click)="genererCodeCiterne()">
+        Générer
+      </button>
+    </div>
+    <input type="number" placeholder="Capacité" [(ngModel)]="nouvelleCiterne.capacite">
+    <input type="number" [(ngModel)]="nouvelleCiterne.nombreCompartiments" name="nombreCompartiments"
+      placeholder="Nbre de compartiment" required />
+    <button type="button" class="btn btn-outline-warning btnn" (click)="ajouterCiterne()">
+      <i class="fa fa-plus-circle">&nbsp;&nbsp;</i><b>Ajouter Citerne</b>
+    </button>
+  </div>
+  <!-- Tableau des citernes -->
+  <div class="search-input-wrapper">
+    <i class="fas fa-search"></i>
+    <input type="text" class="form-control custom-search" placeholder="Rechercher ..." [(ngModel)]="searchReference"
+      (input)="filtrerCiternes()" />
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <!--<th>ID</th>-->
+        <th>Référence</th>
+        <th>Capacité</th>
+        <th>Nbre de compartiment</th>
+        <th>Compartiments </th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let citerne of citernesFiltres | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+        <td>{{ citerne.reference }}</td>
+        <td>{{ citerne.capacite }} L</td>
+        <td>{{ citerne.nombreCompartiments }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let compartiment of citerne.compartiments">
+              {{ compartiment.reference }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-warning" [routerLink]="['/compartiments', citerne.id]">
+            <i class="fa fa-plus-circle"></i> <b> Ajouter compartiment</b>
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-outline-warning" (click)="supprimerCiterne(citerne.id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    
+  </table>
+  <div class="pagination-container text-center mt-3">
+    <pagination-controls 
+  (pageChange)="currentPage = $event"
+  previousLabel="Précédent"
+  nextLabel="Suivant"
+  [autoHide]="true"
+  
+  
+  nextLabel="Suivant">
+</pagination-controls>
+
+
+</div>

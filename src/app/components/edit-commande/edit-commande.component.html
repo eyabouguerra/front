@@ -1,0 +1,84 @@
+<app-header2></app-header2>
+
+<body>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col">
+        <br><br><br>
+        <p class="h3 fw-bold gradient-text1">
+          <i class="fa fa-pen"></i> Modifier une commande
+        </p>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5">
+        <form [formGroup]="commandeForm" (ngSubmit)="editCommande()">
+
+          <!-- Code commande -->
+          <div class="mb-3">
+            <label class="form-label gradient-text">Code de code :</label>
+            <input formControlName="codeCommande" type="text" class="form-control" placeholder="Code de commande"
+              readonly>
+          </div>
+
+          <!-- Produit -->
+          <div class="mb-3">
+            <label for="nomProduit" class="form-label gradient-text">Produit :</label>
+            <input type="text" id="nomProduit" class="form-control"
+              [value]="getNomProduitParId(commandeForm.get('produitId')?.value)" readonly />
+          </div>
+
+
+          <!-- Client -->
+          <div class="mb-3">
+            <label class="form-label gradient-text">Client :</label>
+            <select formControlName="clientId" class="form-control">
+              <option *ngFor="let client of clients" [ngValue]="client.clientId">
+                {{ client.fullName }} ({{ client.contactNumber }})
+              </option>
+              <option [ngValue]="null">-- Aucun client --</option>
+            </select>
+          </div>
+
+          <!-- ... (reste du template inchangé) -->
+
+          <!-- Quantité -->
+          <div class="mb-3">
+            <label class="form-label gradient-text">Quantité :(Modifiable)</label>
+            <input formControlName="quantite" type="number" min="1" class="form-control" placeholder="Quantité">
+          </div>
+
+          <!-- Date de commande -->
+          <div class="mb-3">
+            <label class="form-label gradient-text">Date systéme :</label>
+            <input formControlName="dateCommande" type="date" class="form-control" readonly>
+          </div>
+
+          <!-- Prix total -->
+          <div class="mb-3">
+            <label class="form-label gradient-text">Prix total :</label>
+            <input formControlName="price" type="text" class="form-control" placeholder="Prix total" readonly>
+          </div>
+
+          <!-- Boutons -->
+          <div class="mb-3">
+            <input type="submit" class="custom-btn" value="Modifier la commande">
+            <a routerLink="/commandes" class="custom-btn-outline ms-2">Annuler</a>
+          </div>
+
+        </form>
+      </div>
+      &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+      <!-- Image -->
+      <div class="col-sm-6 text-center">
+        <img src="assets/img/a2.jpg" alt="Commande Image" class="commande-img">
+      </div>
+    </div>
+  </div>
+
+
+</body>

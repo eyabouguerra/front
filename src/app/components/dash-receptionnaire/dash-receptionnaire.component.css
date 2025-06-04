@@ -1,0 +1,41 @@
+
+.background{
+background: rgb(41, 37, 36);
+
+}
+.sous-menu a {
+  text-decoration: none; /* Élimine le trait sous le lien */
+  color: white; /* Change la couleur du lien en blanc */
+}
+
+.add{
+  margin-left: 70em;
+  margin-top: -5em;
+  background-color:rgb(247, 183, 51) ;
+  text-align: center;
+  
+}
+.icon-large{
+  font-size: 20px;
+}
+aside.sidenav {
+position: fixed;
+top: 180px; /* Ajuste selon la hauteur de <app-header2> */
+height: 50em;
+
+}
+body{
+color: var(--bs-body-color);
+}
+span{
+size: 10em;
+}
+.text-large {
+font-size: 15px; /* Ajuste la taille selon ton besoin */
+font-weight: bold; /* Optionnel : mettre en gras */
+}
+.small-image {
+width: -20em;  /* Vous pouvez ajuster cette valeur pour obtenir la taille désirée */
+height: 2em;  /* Gardez le ratio de l'image intact */
+}
+
